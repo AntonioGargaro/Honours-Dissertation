@@ -3,13 +3,14 @@
 \WarningFilter{titlesec}{Non standard sectioning command}
 \WarningFilter{scrreprt}{Usage of package}
 \WarningFilter{scrreprt}{Activating an ugly workaround}
+\WarningFilter{fancyhdr}{Doublespace error}
 
 % **************************************************
 % Document Class Definition
 % **************************************************
 \documentclass[%
 	paper=A4,					% paper size --> A4 is default in Germany
-	twoside=true,				% onesite or twoside printing
+	twoside=false,				% onesite or twoside printing
 	openright,					% doublepage cleaning ends up right side
 	parskip=full,				% spacing value / method for paragraphs
 	chapterprefix=true,			% prefix for chapter marks
@@ -71,7 +72,7 @@
 % 	bibsys=bibtex,%
 	bibsys=biber,%
 	bibfile=bib-refs,%
-	bibstyle=alphabetic,%
+	bibstyle=numeric,%
 ]{cleanthesis}
 
 \hypersetup{					% setup the hyperref-package options
@@ -107,12 +108,14 @@
 \input{content/titlepages}		% INCLUDE: all titlepages
 % \cleardoublepage
 
+\input{content/declaration}
+
 \pagestyle{plain}				% display just page numbers
 \input{content/abstract}		% INCLUDE: the abstracts (english and german)
 % \cleardoublepage
 %
-\input{content/declaration}
-\cleardoublepage
+
+%\cleardoublepage
 %
 
 % TODO: Review including of this at late date
@@ -147,12 +150,12 @@
 % Back matter
 % --------------------------
 {%
-\setstretch{1.1}
+\doublespacing
 \renewcommand{\bibfont}{\normalfont\small}
 \setlength{\biblabelsep}{0pt}
 \setlength{\bibitemsep}{0.5\baselineskip plus 0.5\baselineskip}
 \printbibliography[nottype=online]
-\printbibliography[heading=subbibliography,title={Webseiten},type=online,prefixnumbers={@}]
+\printbibliography[heading=subbibliography,title={Websites},type=online,prefixnumbers={@}]
 }
 \cleardoublepage
 
