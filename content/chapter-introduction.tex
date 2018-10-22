@@ -7,7 +7,7 @@
 
 % \cleanchapterquote{You can’t do better design with a computer, but you can speed up your work enormously.}{Wim Crouwel}{(Graphic designer and typographer)}
 
-The boom of Cryptocurrencies and the youth of their markets allows for a new possibility of volatile trading. However, capitalising on this market by trading on human emotions, impulses or availability can lead to error prone decisions or missed opportunities. A bot is entirely more capable of handling these issues that institutional trading on the US stock market accounted for 61\% or 6.73 billion shares \cite{WEB:Cheng:2017} per day by algorithmic trading in 2009. With constant availability and real time analysis, bots can react fast to sudden market changes, long or short a currency and minimise loss through technical analysis of market indicators. \par
+The boom of cryptocurrencies and the youth of their markets allows for a new possibility of volatile trading. However, capitalising on this market by trading on human emotions, impulses or availability can lead to error prone decisions or missed opportunities. A bot is entirely more capable of handling these issues that institutional trading on the US stock market accounted for 61\% or 6.73 billion shares \cite{WEB:Cheng:2017} per day by algorithmic trading in 2009. With constant availability and real time analysis, bots can react fast to sudden market changes, long or short a currency and minimise loss through technical analysis of market indicators. \par
 
 
 
@@ -16,14 +16,16 @@ The boom of Cryptocurrencies and the youth of their markets allows for a new pos
 
 \section{Aims}
 \label{sec:intro:aims}
-To develop a web app that uses technical analysis and data sets provided from Binance exchange to construct a trading algorithm that generates buy and sell signals. The bot will execute trade's automatically based on these signals in an attempt to produce a positive return on investment. The signals generated and actions taken by the bot will be displayed to the user in a meaningful way.
+To develop a web app that uses technical analysis and data sets provided from the Binance exchange API \cite{WEB:BINANCE_API:2018} to construct a trading algorithm that generates buy and sell signals. The bot will execute trade's automatically based on these signals in an attempt to produce a positive return on investment. The signals generated and actions taken by the bot will be displayed to the user in a meaningful way.
 
 
 \section{Objectives}
 \label{sec:intro:objectives}
-The bot shall have configuration options available to allow the user to customise how their assets are used, such as setting a certain percent or amount of a currency to be used, e.g. 100\% of Bitcoin holdings. It should also include options specific to the way the bot trades, such as minimum profit to take, time intervals\footnote{m = minute, h = hour, w = week, M = month e.g. [30m, 4h, 1w, 1M, ...]} to trade at, different selection of different trading strategies. \par
-Information should be displayed in a useful way to the user about what the bot is doing. Indicators and other useful identifiers will be displayed on a chart to make clear what the bot has done and is currently doing. A log system of the bots actions can also be stored and pushed to the user. \par
-Charted, graphed and tabled data should be provided to the user to show how well (or poorly) the bot has performed for them. This can provide details such as total profit percentage and ROI (Return On Investment), current holdings in their Binance account compared from their initial use of the bot and which bot type has performed better.
+The bot shall have configuration options available to allow the user to customise how their assets are used, such as setting a certain percent or amount of a currency to be used, e.g. 100\% of Bitcoin (BTC)\footnote{The ticker symbol to identify Bitcoin} holdings. It should also include options specific to the way the bot trades, such as minimum profit to take, time intervals\footnote{m = minute, h = hour, w = week, M = month e.g. [30m, 4h, 1w, 1M, ...]} to trade at, different selection of different trading strategies.
+
+Information should be displayed in a useful way to the user about what the bot is doing. Indicators and other useful identifiers will be displayed on a candlestick chart to make clear what the bot has done and is currently doing. A log system of the bots actions can also be stored and pushed to the user.
+
+Charted, graphed and tabled data will be provided to the user to show how well (or poorly) the bot has performed. This can provide details such as total profit percentage and Return On Investment (ROI), current portfolio holdings of specific cryptocurrencies and trades the bot has executed.
 
 
 
@@ -31,16 +33,23 @@ Charted, graphed and tabled data should be provided to the user to show how well
 \label{sec:intro:structure}
 
 \textbf{Chapter \ref{sec:related}} \\[0.2em]
-
+I cover related literature on algorithmic trading from its inception to its peak, the basis of trading strategies and the fundamentals of cryptocurrencies and their markets. I identify common issues and themes amongst these topics, how they have developed overtime and their current states in the modern day. I conclude with identifying gaps in their research and suggest areas for further study while relating to why these topics are relevant to this dissertation as a whole.
 
 \textbf{Chapter \ref{sec:requirements}} \\[0.2em]
-
+I identify use case scenarios and the requirements of this project, showing appropriate analysis and justification where required through various analytic techniques.
 
 \textbf{Chapter \ref{sec:design}} \\[0.2em]
-
+\textbf{// TODO}
+I construct an initial design of the development stack based on various technologies that will be used.
 
 \textbf{Chapter \ref{sec:evaluation}} \\[0.2em]
-
+\textbf{// TODO}
+I discuss the evaluation and analysis of the project in depth.
 
 \textbf{Chapter \ref{sec:management}} \\[0.2em]
-
+\textbf{// TODO}
+\begin{itemize}
+    \item A timetable for the whole year agreed with your supervisor and specifying activities, deliverables and deadlines.
+    \item An analysis of the risks for the project together with appropriate mitigation plans, i.e. not due to illness.
+    \item Thoughtful consideration of any Professional, Legal, Ethical, and Social Issues pertinent to the project.
+\end{itemize}
