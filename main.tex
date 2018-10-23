@@ -12,7 +12,7 @@
 	paper=A4,					% paper size --> A4 is default in Germany
 	twoside=false,				% onesite or twoside printing
 	openright,					% doublepage cleaning ends up right side
-	parskip=full,				% spacing value / method for paragraphs
+	parskip=none,				% spacing value / method for paragraphs
 	chapterprefix=true,			% prefix for chapter marks
 	11pt,						% font size
 	headings=normal,			% size of headings
@@ -155,7 +155,7 @@
 \renewcommand{\bibfont}{\normalfont\small}
 \setlength{\biblabelsep}{0pt}
 \setlength{\bibitemsep}{0.5\baselineskip plus 0.5\baselineskip}
-\printbibliography[nottype=online]
+\printbibliography[heading=subbibliography,title={References},nottype=online]
 \printbibliography[heading=subbibliography,title={Websites},type=online,prefixnumbers={@}]
 }
 \cleardoublepage
