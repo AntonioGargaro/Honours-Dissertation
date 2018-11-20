@@ -3,42 +3,157 @@
 \chapter{Requirements}
 \label{sec:requirements}
 
-\cleanchapterquote{Innovation distinguishes between a leader and a follower.}{Steve Jobs}{(CEO Apple Inc.)}
+%\cleanchapterquote{Innovation distinguishes between a leader and a follower.}{Steve Jobs}{(CEO Apple Inc.)}
 
-\Blindtext[2][1]
+This section discusses requirements and evaluates them to set a clear scope for the project to achieve. The aims and objectives discussed in section \ref{sec:intro:aims} and \ref{sec:intro:objectives} are the bases of the requirements stated below. As a technical project, I will evaluate the functional and non-functional requirements.
 
-\section{System Section 1}
-\label{sec:requirements:sec1}
 
-\Blindtext[1][2]
 
-\begin{figure}[htb]
-	\includegraphics[width=\textwidth]{gfx/Clean-Thesis-Figure}
-	\caption{Figure example: \textit{(a)} example part one, \textit{(c)} example part two; \textit{(c)} example part three}
-	\label{fig:requirements:example1}
-\end{figure}
+\section{Non-Functional Requirements}
+\label{sec:requirements:non_func}
 
-\Blindtext[1][2]
 
-\section{System Section 2}
-\label{sec:requirements:sec2}
+\begin{table}[htb!]
+\centering
+\begin{tabular}{|l|p{0.65\textwidth}|l|l|}
+\hline
+\textbf{ID} & \textbf{Description} & \textbf{Priority} & \textbf{Status} \\ \hline\hline
+NFR-1 & Sum of API fetch weights per second must be equal or less than the limit placed by Binance & Must & - \\ \hline
+NFR-2 & Fetch chosen coin's real-time market data at least once per second & Must & - \\ \hline
+NFR-3 & Perform process in figure \ref{fig:related:tradeprocess} in less than 1 second of retrieving data & Must & - \\ \hline
+NFR-4 & Trade signals should be displayed to the user within 1 second of generation & Must & - \\\hline
+NFR-5 & Web app front end must work on Google Chrome v.70 & Must & - \\\hline
+NFR-6 & Data stored locally should not exceed 5MB per coin pair & Should & - \\ \hline
+NFR-7 & Web app runs simultaneous user operations & Won't have this time & - \\\hline
+\end{tabular}
+\caption{Non-Functional Requirements}
+\label{table:requirements:non_func}
+\end{table}
 
-\Blindtext[1][2]
+\subsection{Non-Functional Requirements Evaluation}
+The Binance API \cite{WEB:BINANCE_API:2018} has set weightings for fetch requests that accumulate between time intervals. This is to prevent constant spamming of their server, so failing to adhere to the set weightings within a time interval will ban the IP of a client from three minutes to three days. Being blocked from the exchange incapacitates the bot and prevent it from receiving market data, or executing on trade signals. To prevent this, non-functional requirement NFR-1 in table \ref{table:requirements:non_func} must be implemented to ensure the continued operation of the bot.
 
-\begin{figure}[htb]
-	\includegraphics[width=\textwidth]{gfx/Clean-Thesis-Figure}
-	\caption{Another Figure example: \textit{(a)} example part one, \textit{(c)} example part two; \textit{(c)} example part three}
-	\label{fig:requirements:example2}
-\end{figure}
+While considering NFR-1, ensuring the bot also has the most up-to-date market data for the coin being traded is imperative to providing correct analysis. This will be considerably important during times of high volatility to find the best entry price. Thus, NFR-2 states a maximum of one call every second, which is consistent to the web socket push interval in Binance's API \cite{WEB:BINANCE_API:2018}. However, if this interval lags and fails to push, a fetch call must execute to receive this data. As discussed in the literature review (See section \ref{sec:related:cryptoAndTheirMarkets}), these API weightings are extremely restrictive in comparison to the stock market. Hence, NFR-2 would likely differ in a HFT bot development requirement for the equity market. 
 
-\Blindtext[2][2]
+The trading bot must be able to identify trading signals in a small enough time frame, before more market data is retrieved from the API. This will prevent a backlog of data that needs to be analysed which would severely delay the bot's operations and is defined at NFR-3. This is also the main themes behind HFT (See section \ref{sec:related:algoTrading:HFT}) and its success in the equity markets. Furthermore, this contributes towards the fulfilment of generating positive returns in this projects aims. This will allow the bot to stay competitive in its approach to the market.
 
-\section{System Section 3}
-\label{sec:requirements:sec3}
+Ensuring the user is kept up-to-date with bots decisions links NFR-4 to one of the project objectives. This will allow the user to monitor the bots operations, so they themselves can make their own judgement on its decisions. NFR-4 is the backbone for FR-1, FR-2, and FR-3 in table \ref{table:requirements:func} and so is a must for this project. Both NFR-5 and NFR-6 ensure quality and efficiency in the front and back ends respectively. Specifically, NFR-6 can see large amounts of data when multiple intervals are used and so data management clean ups may be necessary.
 
-\Blindtext[4][2]
+While the exact goals of this project is to develop a web app for tradings bots as SaaS, this is outwith the scope of this dissertation. Hence, as reference for future iterations, NFR-7 has been
+
+
+\subsection{Functional Use cases}
+\label{sec:requirements:non_func:usecases}
+%Sometimes it is a good idea to put domain objects in \texttt{}
+%The template and the descriptions are based on the book Applying UML and Patterns: 
+%An Introduction to Object-Oriented Analysis and Design and Iterative Development
+%(3rd Edition) by Craig Larman.
+\begin{usecase}
+
+\addtitle{Use Case \ref{sec:requirements:non_func:usecases}.1}{API Fetch Weight Management} 
+
+%Scope: the system under design
+\addfield{Scope:}{Binance Communication Monitor}
+
+%Level: "user-goal" or "subfunction"
+\addfield{Level:}{subfunction}
+
+%Primary Actor: Calls on the system to deliver its services.
+\addfield{Primary Actor:}{Weight Tracker}
+
+%Stakeholders and Interests: Who cares about this use case and what do they want?
+\additemizedfield{Stakeholders and Interests:}{
+	\item User: Ensures bot stays operational 
+}
+
+%Preconditions: What must be true on start and worth telling the reader?
+\addfield{Preconditions:}{Requirement of data}
+%when multiple
+%\additemizedfield{Preconditions:}{} 
+
+%Postconditions: What must be true on successful completion and worth telling the reader
+\addfield{Postconditions:}{Unhindered access to Binance API}
+%when multiple
+%\additemizedfield{Preconditions:}{}
+
+%Main Success Scenario: A typical, unconditional happy path scenario of success.
+\addscenario{Main Success Scenario:}{
+	\item The bot requires data from Binance API
+	\item Fetch request is sent for data
+	\item Data returns without warnings
+	\item Fetch request is sent for data
+	\item Warning code \textbf{429} is returned
+	\item Weight Tracker sets a delay to prevent further spamming
+	\item Delay time passes
+	\item Continue fetching data as usual
+}
+
+%Extensions: Alternate scenarios of success or failure.
+\addscenario{Extensions:}{
+	\item[6.a] Weight Tracker fails to set delay:
+		\begin{enumerate}
+		\item[1.] Warning code \textbf{418} returned (IP Banned)
+		\item[2.] Bot logs IP ban and warns user
+		\item[3.] Use case ends
+		\end{enumerate}
+	\item[5.a] Invalid subsriber data:
+		\begin{enumerate}
+		\item[1.] System shows failure message
+		\item[2.] User returns to step 2 and corrects the errors
+		\end{enumerate}
+}
+
+%Special Requirements: Related non-functional requirements.
+\additemizedfield{Special Requirements:}{
+	\item first applicable non-functional requirement
+	\item second applicable non-functional requirement
+}
+
+%Technology and Data Variations List: Varying I/O methods and data formats.
+\addscenario{Technology and Data Variations List:}{
+	\item[1a.] Alternative first action with other technology
+}
+
+%Frequency of Occurrence: Influences investigation, testing and timing of implementation.
+\addfield{Frequency of Occurrence:}{}
+
+%Miscellaneous: Such as open issues/questions
+%\addfield{Open Issues:}{}
+
+\end{usecase}
+
+
+
+
+
+\newpage
+\section{Functional Requirements}
+\label{sec:requirements:unc}
+
+
+
+\begin{table}[htb!]
+\centering
+\begin{tabular}{|l|p{0.65\textwidth}|l|l|}
+\hline
+\textbf{ID} & \textbf{Description} & \textbf{Priority} & \textbf{Status} \\ \hline\hline
+FR-1 & The user can stop the bot and cancel trades at any time & Must & - \\ \hline
+FR-2 & A detailed output about the bots current operations to be displayed to the user & Must & - \\ \hline
+FR-3 & Web app must display coin's market data on a candlestick chart & Must & - \\\hline
+FR-4 & Candlestick chart displaying buy and sell signals that are generated & Must & - \\\hline
+FR-5 & User configuration of algorithm options & Must & - \\ \hline
+FR-5 & User  & Must & - \\ \hline
+FR-6 & User tracking of coin selection on server & Should & - \\ \hline
+FR-7 & Web app should display technical indicators bot is using on candlestick chart & Could & - \\\hline
+FR-8 & Web app to display other book data & Could & - \\\hline
+\end{tabular}
+\caption{Functional Requirements}
+\label{table:requirements:func}
+\end{table}
+
+
+
+
 
 \section{Conclusion}
 \label{sec:requirements:conclusion}
-
-\Blindtext[2][1]
