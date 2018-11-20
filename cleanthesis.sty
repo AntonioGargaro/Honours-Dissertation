@@ -294,6 +294,7 @@
 	url=false,						% 	- don't show url tags
 	doi=false,						% 	- don't show doi tags
 	urldate=long,					% 	- display type for dates
+	defernumbers=true,
 	maxnames=3,%
 	minnames=1,%
 	maxbibnames=5,%
@@ -384,15 +385,15 @@
 \fancypagestyle{plain}{%
 	\fancyhf{}
 	\fancyfootoffset[OR]{1.85cm}
-	\fancyfoot[OR]{%
+	\fancyfoot[R]{%
 		{\ }\tgherosfont%
 		{\color{ctcolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
 		\hspace*{10pt}\begin{minipage}[b]{1.5cm}%
 			\color{ctcolorfooterpage}\normalsize\textbf{\thepage}%
 		\end{minipage}%
 	}
-	\fancyfootoffset[EL]{1.85cm}
-	\fancyfoot[EL]{%
+	\fancyfootoffset[L]{1.85cm}
+	\fancyfoot[L]{%
 		\tgherosfont%
 		\begin{minipage}[b]{1.5cm}%
 			\raggedleft\color{ctcolorfooterpage}\normalsize\textbf{\thepage}%
@@ -406,8 +407,8 @@
 \fancypagestyle{maincontentstyle}{%
 	\pagestyle{plain}
 	\fancyhf{}
-	\fancyfootoffset[OR]{1.85cm}
-	\fancyfoot[OR]{%
+	\fancyfootoffset[R]{1.85cm}
+	\fancyfoot[R]{%
 		{\ }\tgherosfont\footnotesize%
 		\rightmark%
 		\hspace*{0.75cm}{\color{ctcolorfooterline}\rule[-90pt]{1.25pt}{100pt}}%
@@ -415,8 +416,8 @@
 			\color{ctcolorfooterpage}\normalsize\textbf{\thepage}%
 		\end{minipage}%
 	}
-	\fancyfootoffset[EL]{1.85cm}
-	\fancyfoot[EL]{%
+	\fancyfootoffset[L]{1.85cm}
+	\fancyfoot[L]{%
 		\tgherosfont\footnotesize%
 		\begin{minipage}[b]{1.5cm}%
 			\raggedleft\color{ctcolorfooterpage}\normalsize\textbf{\thepage}%

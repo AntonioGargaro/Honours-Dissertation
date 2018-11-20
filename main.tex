@@ -5,6 +5,7 @@
 \WarningFilter{scrreprt}{Activating an ugly workaround}
 \WarningFilter{fancyhdr}{Doublespace error}
 
+
 % **************************************************
 % Document Class Definition
 % **************************************************
@@ -12,7 +13,7 @@
 	paper=A4,					% paper size --> A4 is default in Germany
 	twoside=false,				% onesite or twoside printing
 	openright,					% doublepage cleaning ends up right side
-	parskip=none,				% spacing value / method for paragraphs
+	parskip,				% spacing value / method for paragraphs
 	chapterprefix=true,			% prefix for chapter marks
 	11pt,						% font size
 	headings=normal,			% size of headings
@@ -22,6 +23,8 @@
 	captions=tableabove,		% display table captions above the float env
 	draft=false,				% value for draft version
 ]{scrreprt}%
+
+
 
 % **************************************************
 % Debug LaTeX Information
@@ -87,6 +90,17 @@
 	bookmarksnumbered=true,		%
 	bookmarksopen=true,		%
 }
+\usepackage[newfloat]{minted}
+\usepackage{caption}
+
+\newenvironment{code}
+{
+\par\nobreak\vfil\penalty0\vfilneg
+   \vtop\bgroup
+}{\par\xdef\tpd{\the\prevdepth}\egroup
+   \prevdepth=\tpd
+   \captionsetup{type=sublisting}}
+\SetupFloatingEnvironment{listing}{name=Code Snippet}
 
 % **************************************************
 % Document CONTENT
@@ -155,10 +169,14 @@
 \renewcommand{\bibfont}{\normalfont\small}
 \setlength{\biblabelsep}{0pt}
 \setlength{\bibitemsep}{0.5\baselineskip plus 0.5\baselineskip}
+\assignrefcontextkeyws[labelprefix=@]{@}
 \printbibliography[heading=subbibliography,title={References},nottype=online]
 \printbibliography[heading=subbibliography,title={Websites},type=online,prefixnumbers={@}]
 }
 \cleardoublepage
+
+\input{content/appendix}
+\clearpage
 
 \listoffigures
 \cleardoublepage

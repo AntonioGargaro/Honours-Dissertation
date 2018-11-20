@@ -1,0 +1,57 @@
+% !TEX root = ../thesis-example.tex
+%
+\chapter{Appendix}
+\label{sec:appendix}
+
+\section{Code Snippets}
+\label{sec:appendix:code_snippets}
+
+\begin{code}
+\captionof{listing}{pandas Example 1}
+\label{code:rel:dev_lib:pandas:amz_data}
+\begin{minted}{Python}
+import pandas_datareader.data as web
+# collect data for Amazon from 2017-04-22 to 2018-04-22
+start = '2017-04-22'
+end = '2018-04-22'
+df = web.DataReader(name='AMZN', data_source='iex', start=start, end=end)
+print(df)
+\end{minted}
+\begin{minted}{text}
+// OUTPUT
+open date    high      low        close      volume
+2017-04-24   908.680   909.9900   903.8200   907.41   3122893
+2017-04-25   907.040   909.4800   903.0000   907.62   3380639
+...
+\end{minted}
+\end{code}
+
+\begin{code}
+\captionof{listing}{Backtrader Differences Between Moving Averages}
+\label{code:rel:dev_lib:backtrader:sma_diff}
+\begin{minted}{Python}
+a = SMA(period=25) - SMA(period=50)
+\end{minted}
+\end{code}
+
+
+\begin{code}
+\captionof{listing}{Flask RESTful Minimal Setup}
+\label{code:rel:dev_lib:flask:flask_restful}
+\begin{minted}{Python}
+from flask import Flask
+from flask_restful import Resource, Api
+
+app = Flask(__name__)
+api = Api(app)
+
+class HelloWorld(Resource):
+    def get(self):
+        return {'hello': 'world'}
+
+api.add_resource(HelloWorld, '/')
+
+if __name__ == '__main__':
+    app.run(debug=True)
+\end{minted}
+\end{code}
