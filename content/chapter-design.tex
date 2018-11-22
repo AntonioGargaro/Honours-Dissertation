@@ -2,22 +2,36 @@
 %
 \chapter{Design}
 \label{sec:design}
+\vspace{-4em}{
 
+As discussed in section \ref{sec:related:developmentLibraries} (Pg. \pageref{sec:related:developmentLibraries}), the main libraries have been researched and evaluated. Below is the listed technology stack currently established.
 
-\section{Postcards: My Address}
-\label{sec:design:address}
+\section{Front End Stack}
+\label{sec:design:frontend}
+\begin{enumerate}
+    \item JavaScript (ES6)
+    \item React JS  -   Library for builing UI
+    \item Redux     -   Application State Management
+    \item Websockets \& API Fetches - Network Communication Protocols
+    \item Webpack   - JS Module Builder
+    \item jQuery    - Simplify DOM Traversals
+    \item Material-UI   - React UI Framework
+\end{enumerate}
 
-
-\section{Motivation and Problem Statement}
+\section{Back End Stack}
 \label{sec:design:motivation}
+\begin{enumerate}
+    \item Flask \& Flask RESTful API - Web server framework \& Communications
+    \item Fask SQL Alchemy          - SQLite for user tracking
+    \item Binance Python Wrapper    - Wrapper to contact Binance API
+    \item Backtrader                - Backtesting library with multiple indicators
+    \item pandas                    - Data structures and analysis
+\end{enumerate}
+
+\section{Evaluation}
+\label{sec:design:eval}
+
+\noindent The front end stack is consistent with modern day singe page web apps. Specifically, React is a powerful UI library with great control. Redux simplifies management of the entire application state by providing a central store. The back end stack provides powerful infrastructure and data processing tools. The development team has used most of these technologies prior to this project.
 
 
-\section{Results}
-\label{sec:design:results}
-
-
-\subsection{Some References}
-\label{sec:design:results:refs}
-
-\section{Make Something Here}
-\label{sec:design:CHANGEME}
+}
