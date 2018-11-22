@@ -7,7 +7,7 @@
 
 % \cleanchapterquote{You can’t do better design with a computer, but you can speed up your work enormously.}{Wim Crouwel}{(Graphic designer and typographer)}
 
-The boom of cryptocurrencies and the youth of their markets allows for a new possibility of volatile trading. However, capitalising on this market by trading on human emotions, impulses or availability can lead to error prone decisions or missed opportunities. A bot is entirely more capable of handling these issues that institutional trading on the US stock market accounted for 61\% or 6.73 billion shares \cite{WEB:Cheng:2017} per day by algorithmic trading in 2009. With constant availability and real time analysis, bots can react fast to sudden market changes, long or short a currency and minimise loss through technical analysis of market indicators. \par
+The boom of cryptocurrencies and the youth of their markets allows for a new possibility of volatile trading. However, capitalising on this market by trading on human emotions, impulses or availability can lead to error prone decisions or missed opportunities. A bot is entirely more capable of handling these issues that institutional trading on the US stock market accounted for 61\% or 6.73 billion shares \cite{WEB:Cheng:2017} per day by algorithmic trading in 2009. With constant availability and real-time analysis, bots can react fast to sudden market changes, long or short a currency and minimise loss through analysis of market data. Developing a web app presents a widely available remote interface to interact with this service, pushing the computational requirements to a server rather than the user's own hardware.
 
 
 
@@ -16,16 +16,16 @@ The boom of cryptocurrencies and the youth of their markets allows for a new pos
 
 \section{Aims}
 \label{sec:intro:aims}
-\noindent To develop a web app that utilises technical analysis on data sets provided by the cryptocurrency exchange Binance, via their API \cite{WEB:BINANCE_API:2018}. This will utilise a trading strategy to generate buy and sell signals. The bot will execute trade's automatically based on these signals in an attempt to produce a positive return on investment. The signals generated and actions taken by the bot will be displayed to the user in a meaningful way.
+\noindent To develop a web app that utilises technical analysis on data sets provided by the cryptocurrency exchange Binance, via their API \cite{WEB:BINANCE_API:2018}. A trading strategy to generate buy and sell signals based on the market's current trends will be derived from this data. This will be implemented as a web server as to interact with the bot from a web based dashboard. The signals generated and actions taken by the bot will be displayed to the user in a meaningful way.
 
 
 \section{Objectives}
 \label{sec:intro:objectives}
-\noindent The bot shall have configuration options available to allow the user to customise how their assets are used, such as setting a certain percent or amount of a currency to be used, e.g. 100\% of Bitcoin (BTC)\footnote{The ticker symbol to identify Bitcoin} holdings. It should also include options specific to the way the bot trades, such as minimum profit to take, time intervals\footnote{m = minute, h = hour, w = week, M = month e.g. [30m, 4h, 1w, 1M, ...]} to trade at as well as different selections of distinct trading strategies.
+\noindent The bot shall be configurable to allow the user to customise how their assets are used, such as setting a certain percent or amount of a specified currency, e.g. 100\% of Bitcoin (BTC)\footnote{The ticker symbol to identify Bitcoin} holdings. It should also include options specific to the way the bot trades, such as minimum profit to take and time intervals\footnote{m = minute, h = hour, w = week, M = month e.g. [30m, 4h, 1w, 1M, ...]} to trade at.
 
-Information should be displayed in a useful way to the user about what the bot is doing. Indicators and other useful identifiers will be displayed on a candlestick chart to make clear what the bot has done and is currently doing. A log system of the bots actions can also be stored and pushed to the user.
+Information should be displayed in a useful way to the user about what the bot is doing. Indicators and other useful identifiers will be displayed on a candlestick chart to make clear what the bot has done and is currently doing. A log system of the bots actions will be stored and pushed to the user.
 
-Charted, graphed and tabled data will be provided to the user to show how well (or poorly) the bot has performed. This can provide details such as total profit percentage and Return On Investment (ROI), current portfolio holdings of specific cryptocurrencies and trades the bot has executed.
+Lastly, an option to back-test the bot's trading algorithm shall be available to the user. This shall present a way to evaluate the bot's performance before the user enters into live trades on the market. 
 
 
 
@@ -39,12 +39,10 @@ I cover related literature on algorithmic trading, the basics of trend indicator
 I identify use case scenarios and the requirements of this project, showing appropriate analysis and justification where required.
 
 \noindent\textbf{Chapter \ref{sec:design}} \\[0.2em]
-\textbf{// TODO}
 I construct an initial design of the development stack based on various technologies that will be used.
 
 \noindent\textbf{Chapter \ref{sec:evaluation}} \\[0.2em]
-\textbf{// TODO}
 I discuss the evaluation methods of this project.
 
 \noindent\textbf{Chapter \ref{sec:management}} \\[0.2em]
-I outline steps taken to manage this project by providing time lines, justifications and risk assessments.
+I outline steps taken to manage this project by providing time lines, justifications, and risk assessments.
