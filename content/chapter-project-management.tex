@@ -3,34 +3,88 @@
 \chapter{Management}
 \label{sec:management}
 
-This section discusses the project as a whole, presenting a time line of tasks to complete, the risks involved during development, and discuss issues that are relevant to the project.
+This chapter outlines the project as a whole, presenting a time line of tasks and milestones to achieve, the risks involved during development, and a discussion on issues that are relevant to the project.
 
 
 
 \section{Project Plan}
 \label{sec:management:pp}
 
-Two Gantt charts were presented for both semesters this project is developed within. The first semester discusses how this project came into fruition, the time lime of the literature review, and illustrating the of time taken on other sections. The second semester outlines a rough guide to the development of the project, import milestones to achieve, and the conclusion of this project.
+\noindent Two Gantt charts were presented for both semesters this project is developed within. The first semester discusses how this project came into fruition, the time lime of the literature review, and illustrating the of time taken on other sections. The second semester outlines a rough guide to the development of the project, import milestones to achieve, and the conclusion of this project.
 
 \subsection{Semester 1}
 \label{sec:management:pp:sem1}
 
-\noindent Referring to the Gantt chart in section \ref{gantt:sem1} (Pg. \pageref{gantt:sem1}), the project plans displays the milestones for this semester. Specifically, the Literature Review was prioritised at the start of the semester ensuring I had time to concentrate on researching the AT space. I concluded that 5 weeks should be sufficient to ensure I touched on all areas of this field. While it was completed, task 2.2 took considerably longer than my 5 week estimation due to rewrites. The effect of this left less time than planned for other sections which are discussed below.
+\noindent Referring to the Gantt chart in appendix \ref{gantt:sem1} (Pg. \pageref{gantt:sem1}), the project plans displays the milestones for this semester. Specifically, the Literature Review was prioritised at the start of the semester ensuring I had time to concentrate on researching the AT space. I concluded that 5 weeks should be sufficient to ensure I touched on all areas of this field. While the \textbf{Literature Review Milestone} was completed, task \textbf{2.2} took considerably longer than my 5 week estimation due to rewrites. The rolling effect from this left less time than anticipated for other sections.
 
-The requirements analysis was effected heavily by the overlap of task 2.2, where I could not complete any UML diagrams without further cutting into the design and risk analysis stages. Thus, I decided to cut task 3.2 short, completing roughly 60\% of the original plan. This allowed tasks \textbf{4.1, 5.1, and 7.1} to be completed to a greater degree.
+The requirements analysis was effected heavily by the overlap of task \textbf{2.2}, where I could not complete the task to a high level of quality without further cutting into the design and risk analysis stages. Thus, I decided to cut task \textbf{3.2} down, completing roughly 60\% of the original plan. This allowed tasks \textbf{4.1, 5.1, and 7.1} to be completed to a greater degree. I also cut task \textbf{4.2} from the first deliverable's project plan which allowed more time to be spent working on tasks \textbf{5.1, 7.2, 7.3, and 7.4} which concluded the \textbf{Deliverable 1 Milestone}. 
 
 
 
 \subsection{Semester 2}
 \label{sec:management:pp:sem2}
 
-\noindent Referring to the Gantt chart in section \ref{gantt:sem2} (Pg. \pageref{gantt:sem2}), the development outline of the project is clearly displayed. I will be following an agile development method, creating plans for weekly sprints based on the SCRUM framework that will match to tasks \textbf{1.1 to 1.5}. 
+\noindent Referring to the Gantt chart in appendix \ref{gantt:sem2} (Pg. \pageref{gantt:sem2}), the development outline of the project is clearly displayed. I will be following an agile development method, creating plans for weekly sprints based on the SCRUM framework that will develop tasks \textbf{1.1 - 1.5}. 
 
-This framework consists of a product backlog, sprint planning to create a sprint backlog, followed by progress reviews at the end of sprints. The tasks \textbf{1.1 to 1.5} will be the bases for my product backlog. The advantages of using this agile framework allows to focus attention or specific parts of the project and incrementally implement them. This will also allow for self-evaluation of the projects status, confirming deadlines are being met and that project is on track for the milestone \textbf{Project Build 1.0}.
+This framework consists of a product backlog, sprint planning to create a sprint backlog, followed by progress reviews at the end of sprints. The tasks \textbf{1.1 - 1.5} will be the bases for my product backlog. The advantages of using this agile framework allows to focus attention on specific parts of the project and incrementally implement them. This will also allow for self-evaluation of the projects status, confirming deadlines are being met and that the project is on track for the milestone \textbf{Project Build 1.0}. An important note from this project plan is the prioritisation of the back-end development first. As this is the core of the project, this will be the main focus.
+
+All the work produced during the project development will be documented, as seen by task \textbf{2.1.} This task is vital to achieving the \textbf{Dissertation Draft Milestone}, and hence the \textbf{Dissertation Hand-In} and \textbf{Poster Session} milestones. To ensure I am on track for completing this task, I will present my documentation to my supervisor bi-weekly, and confirm the completion amount on the project time line. 
 
 
-\section{Risk Analysis}
+\section{Risk Management}
 \label{sec:management:ra}
+
+\noindent As risks towards the project can effect the quality of the final product, a risk analysis has been evaluated to prevent negative factors. This is based on SWOT analysis and the different levels of risk are documented based on their likelihood. Appropriate mitigating scenarios have been developed.
+
+\subsection{Risk Identification and Analysis}
+
+\noindent Referring to table \ref{table:management:risks}, risks have been identified and evaluated to present the chances of the risk occurring, and how much it will impact the project by. Low, Medium, and High enumerations represent ranges from,
+\begin{enumerate}
+    \item Low - 0\% $\leq$ n $\leq$ 33\%
+    \item Medium - 33\% $\leq$ n $\leq$ 66\%
+    \item High - 66\% $\leq$ n $\leq$ 100\%
+\end{enumerate}
+
+\begin{table}[htb!]
+\centering
+\begin{tabular}{|l|p{0.5\textwidth}|p{0.13\textwidth}|l|}
+\hline
+\textbf{ID} & \textbf{Description} & \textbf{Likelihood} & \textbf{Impact} \\ \hline\hline
+R-1 & Other commitments interfering & Medium & Medium \\ \hline
+R-2 & Binance API goes offline & Low & High \\ \hline
+R-3 & A library dependency becomes unusable & Low & Medium \\ \hline
+R-4 & Development time taking longer than expected & Medium & Medium \\ \hline
+R-5 & Development library incompatibility issues & Low & Medium \\ \hline
+R-6 & Loss of project sources & Low & Low \\ \hline
+R-7 & Insufficient processing hardware for project  & Low & Medium \\ \hline
+R-8 & Adding unnecessary features (gold plating) & Medium & Medium \\ \hline
+\end{tabular}
+\caption{Risk Table}
+\label{table:management:risks}
+\end{table}
+
+\subsection{Risk Mitigation}
+
+\noindent Referring to table \ref{table:management:risk_mitigation}, identifying resolutions to forecasted potential risks will minimise the project impact. Thus, mitigating risk scenarios have been developed.
+
+\begin{table}[htb!]
+\centering
+\begin{tabular}{|l|p{0.78\textwidth}|}
+\hline
+\textbf{ID} & \textbf{Strategy} \\ \hline\hline
+R-1 & Distribute work load appropriately around other commitments and ensure core functionality can be implemented. \\ \hline
+R-2 & Either, swap to another high volume exchange available from McHardy\footnote{https://github.com/sammchardy} using similar wrapper design. Or, utilise the Coinbase API via their python wrapper\footnote{https://github.com/coinbase/coinbase-python}. \\ \hline
+R-3 & Analyse why it is unusable and find another library that avoids the issue and can fulfil the project requirements. \\ \hline
+R-4 & Analyse and reshuffle priorities to focus on developing as much of the core requirements. Reflect this in sprint reviews. \\ \hline
+R-5 & Identify reasons for incompatibility and find suitable library replacements that resolve the issue. \\ \hline
+R-6 & Develop project using version control on hosted servers. Make back-ups on regular intervals. \\ \hline
+R-7 & Utilise powerful AWS servers on their free tier\footnote{https://aws.amazon.com/free/}. \\ \hline
+R-8 & Confirm new features to be implemented meet the current sprint's backlog  \\ \hline
+\end{tabular}
+\caption{Risk Mitigation}
+\label{table:management:risk_mitigation}
+\end{table}
+
 
 
 
