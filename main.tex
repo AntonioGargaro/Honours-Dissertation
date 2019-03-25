@@ -165,6 +165,7 @@
 \input{content/chapter-related-work} % INCLUDE: related work
 \input{content/chapter-requirements} % INCLUDE: system
 \input{content/chapter-design} % INCLUDE: design
+\input{content/chapter-implementation} % INCLUDE: implementation
 \input{content/chapter-evaluation} % INCLUDE: evaluation
 \input{content/chapter-project-management} % INCLUDE: project management
 \input{content/chapter-d1-conclusion.tex} % INCLUDE: Deliverable 1 Conclusion
@@ -177,16 +178,19 @@
 % --------------------------
 % Back matter
 % --------------------------
+\chapter{References}
+\label{sec:references}
 {%
 \doublespacing
 \renewcommand{\bibfont}{\normalfont\small}
 \setlength{\biblabelsep}{0pt}
 \setlength{\bibitemsep}{0.5\baselineskip plus 0.5\baselineskip}
 \assignrefcontextkeyws[labelprefix=@]{@}
-\printbibliography[heading=subbibliography,title={References},nottype=online]
+\printbibliography[heading=none,nottype=online]
 \printbibliography[heading=subbibliography,title={Websites},type=online,prefixnumbers={@}]
 }
 \cleardoublepage
+
 
 \input{content/appendix}
 \clearpage
