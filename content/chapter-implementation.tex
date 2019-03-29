@@ -100,4 +100,47 @@ Overall, the actor model is beneficial towards the development of this project b
 \section{Front End Process}
 \label{sec:implementation:frontend}
 
-\noindent Implementation of the front end can be categorised into two main sections. Data visualisation of Binance's market data, and controls and notifications of the platform. Both sections utilise two main technologies for the UI, React and Redux.
+% TODO add react and redux to lit review
+\noindent Implementation of the front end can be categorised into two main sections, data visualisation of Binance's market data, and user controls and notifications of the platform. Both sections utilise two main technologies, React and Redux. As discussed in section \ref{sec:design:frontend} (Pg. \pageref{sec:design:frontend}), Redux is an \textbf{application state manager} and React is a \textbf{UI library}. Both technologies integrate well together, with React creating self-contained components and Redux tying them together with a central \textit{store}.
+
+% Quick redux example, react example
+Redux was necessary to allow actions of controllers update the rest of the UI. For example, selecting a different coin pair such as ETH/USDT would trigger an action to update the store's state to what the current coin pair is selected. This would then cause the candlestick chart, order book, quick information panel and bot controller options to update. 
+
+% Data Visualisation of Market Data Section
+\subsection{Data Visualisation of Market Data}
+\label{sec:implementation:frontend:data_vis}
+%% Candlestick/Volume
+\noindent The main area of the front end UI is the candlestick chart. This chart can visualise current and historic price information of a coin pair. It displays information on the open and close and highest and lowest prices within an interval. The chart itself is a library that is heavily customisable and requires data to be passed into it. The logic for data retrieval is implemented in a container that then renders the chart. When the container is mounted, a WebSocket is opened to the web server to request data. This request takes the current coin pair saved in the Redux state - BTC/USDT by default - and requests the streaming of data. The container then \textit{listens} for the response which is then parsed and pushed into the chart component which populates the chart intervals.
+
+% Maybe code snippet of mapping function?
+Parsing the retrieved data uses a mapping function to transform a list into a JavaScript object. The millisecond time stamp is converted to a UTC string date\footnote{e.g. Fri, 02 Feb 1996 03:04:05 GMT} and assigned to a key-value pair in a JavaScript object, along with the open, close, highest, lowest and volume data indexes in the list. Performance may suffer on weak systems when large amounts of data is required to be parsed to this format. 
+
+While performance issues did not occur on development systems, this may be worth further investigating in future iterations. A potential solution to this is prepossessing the required format on the server before the user retrieves the data, however this would then cause inconsistencies between data formats. A data parameter could be used to toggle the prepossessed format in future iterations. It is worth noting that the intense mapping operation only occurs on the initial received data due to the web server forwarding the historical data. The data received thereafter is used for appending or updating the latest interval. This is discussed in depth in section \ref{sec:implementation:info_comm:binance_exchange_data} (Pg. \pageref{sec:implementation:info_comm:binance_exchange_data}).
+
+
+
+%% Orderbook
+
+
+%% Quick Info Panel
+
+
+% User Controls and Notifications
+\subsection{User Controls and Notifications}
+\label{sec:implementation:frontend:controls_notifications}
+%% Coin pair selection
+
+
+%% Bot Controls
+
+
+%% Push Message Panel
+
+
+%% Page Selection???
+
+
+
+
+
+
