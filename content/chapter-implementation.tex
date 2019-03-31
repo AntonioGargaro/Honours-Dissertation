@@ -112,30 +112,38 @@ Redux was necessary to allow actions of controllers update the rest of the UI. F
 %% Candlestick/Volume
 \noindent The main area of the front end UI is the candlestick chart. This chart can visualise current and historic price information of a coin pair. It displays information on the open and close and highest and lowest prices within an interval. The chart itself is a library that is heavily customisable and requires data to be passed into it. The logic for data retrieval is implemented in a container that then renders the chart. When the container is mounted, a WebSocket is opened to the web server to request data. This request takes the current coin pair saved in the Redux state - BTC/USDT by default - and requests the streaming of data. The container then \textit{listens} for the response which is then parsed and pushed into the chart component which populates the chart intervals.
 
-% Maybe code snippet of mapping function?
-Parsing the retrieved data uses a mapping function to transform a list into a JavaScript object. The millisecond time stamp is converted to a UTC string date\footnote{e.g. Fri, 02 Feb 1996 03:04:05 GMT} and assigned to a key-value pair in a JavaScript object, along with the open, close, highest, lowest and volume data indexes in the list. Performance may suffer on weak systems when large amounts of data is required to be parsed to this format. 
+% Maybe code snippet of mapping function and data retrieved?
+Parsing the retrieved data uses a mapping function to transform a list into a JavaScript object. The millisecond time stamp is converted to a UTC string date\footnote{e.g. Fri, 02 Feb 1996 03:04:05 GMT} and assigned to a key-value pair in a JavaScript object, along with the open, close, highest, lowest and volume data indexes in the list. Performance may suffer on weak systems when large amounts of data is required to be parsed to this format. While performance issues did not occur on development systems, this may be worth further investigating in future iterations. 
 
-While performance issues did not occur on development systems, this may be worth further investigating in future iterations. A potential solution to this is prepossessing the required format on the server before the user retrieves the data, however this would then cause inconsistencies between data formats. A data parameter could be used to toggle the prepossessed format in future iterations. It is worth noting that the intense mapping operation only occurs on the initial received data due to the web server forwarding the historical data. The data received thereafter is used for appending or updating the latest interval. This is discussed in depth in section \ref{sec:implementation:info_comm:binance_exchange_data} (Pg. \pageref{sec:implementation:info_comm:binance_exchange_data}).
+One solution to performance issues could include prepossessing the required format on the server before the user retrieves the data, however this would then cause inconsistencies between data formats. A data parameter could be used to toggle the prepossessed format in future iterations. It is worth noting that the intense mapping operation only occurs on the initial received data due to the web server forwarding the historical data. The data received thereafter is used for appending or updating the latest interval. This is discussed in depth in section \ref{sec:implementation:info_comm:binance_exchange_data} (Pg. \pageref{sec:implementation:info_comm:binance_exchange_data}).
 
-
+Unfortunately, due to time constraints, implementation of technical indicators corresponding to the indicators a strategy would use was missed within the time line of this project. This could be implemented in future iterations, however, the \textbf{SMA} and \textbf{Bollinger Band} indicators are displayed on the chart as placeholders. Further developing the UI to align with the bot's strategy would offer the user more information of how the bot derived signals from it's indicators.
 
 %% Orderbook
+Within the bot's signal generation process, the order book is not used to perform trade executions as this feature is outside the scope of this project. However, the UI implementation brings information about the market's depth to the user and can display how liquid or illiquid a market is. Developing the order book had challenges to ensure the data displayed is accurate with no missing pieces.
 
+Ensuring this firstly required streaming data from the WebSocket into a buffer that holds data representing \textit{updates} to the current order book. After receiving the first payload from the WebSocket, a fetch request for the order book's historical data is sent. After receiving the response data, the streamed data residing in the buffer with a time stamp older (smaller) than the historical data's time stamp is discarded. The historic data is then placed in the buy or sell order book table and the rest of the order book buffer is emptied to update the tables. All new streamed data is then able to update these tables, and ensures the buy and sell order books are accurate and up-to-date.
 
 %% Quick Info Panel
-
+For a quick overview of the market conditions, a data panel is provided at the top of the UI providing information such as the current coin price, what coin pair is currently being viewed, the volume traded within the last 24 hours and other useful information. This panel is managed entirely by the Redux state manager and is the main point of reference to feedback meta information the user is currently looking at. All the data is collected and updated from different components of the UI, displaying the web app's overall state.
 
 % User Controls and Notifications
 \subsection{User Controls and Notifications}
 \label{sec:implementation:frontend:controls_notifications}
-%% Coin pair selection
-
-
 %% Bot Controls
+% TODO pretty weak intro, fix it
+\noindent The bot control panel has two main points of functionality, toggling the bot on or off and configuring the bot through strategy selection. By implementing the strategies and their configurations directly into the front end has increased difficulty for future maintainability and addition of strategies. As strategies are written directly into the Redux state, updating or adding a strategy requires that they are also updated on the web server. This means that updates to the strategies require change in two different parts of the application. In future work, implementing an endpoint that the front end can request all offered strategies and their configurations would reduce the time required to add or update strategies.
 
+The strategy selection and configuration panel provides a drop down box of strategies that are currently offered. Selecting a strategy displays parameters specific to that strategy and which the user may customise. These configuration options are sent to the server when starting the bot. After requesting a bot to start, the bot's hash ID is returned as the initial response. This hash ID is stored on the front end to allow the user to stop the bot at a later point. Their is limitations towards the current implementation as it can only store one hash ID and store this ID during the current browser session. This provides limitations towards future goals of controlling multiple bots simultaneously.
+
+One solution would be to create a login and account management system where a bots hash IDs can be attached to an account and stored in a database. This would create persistence of controlling the bot between web browser sessions by being able to retrieve the hash IDs on login and allowing multiple bot IDs to be controlled. 
 
 %% Push Message Panel
+Keeping the user up-to-date with the current status and operations of the bot led to implementing two types of notifications. The first being a push message panel that creates a log of vital system messages that can communicate the current status and intent of a bot. Messages in this panel can be generated by both the front end and the web server. The second being \textit{snackbar} notifications that provide system confirmations for convenience, providing feedback to the user that their actions have been processed. The snackbar implementation is provided by material-ui and offers colour coded message types. This offers different information to the user through success, warning, error and information messages.
 
+
+
+%% Coin pair selection
 
 %% Page Selection???
 
