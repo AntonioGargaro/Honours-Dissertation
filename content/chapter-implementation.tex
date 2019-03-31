@@ -9,22 +9,32 @@ The development of this web app can be split into three significant processes. T
 \section{Information \& Communication Process}
 \label{sec:implementation:info_comm}
 
-\noindent As stated in the aims of this project (Sec. \ref{sec:intro:aims}, pg. \pageref{sec:intro:aims}), the core services of the bot would be delivered as a web app using SaaS. The initial design choice of using a Flask web server was used to implement the communications backbone of the project. Extensions available to Flask allowed for extra functionality to be slotted into the web server. 
-
-The extensions used include Flask-RESTful that allowed the implementation of a REST API, Flask-SocketIO that allowed streaming two way communication between the server and client using WebSockets, and lastly Flask-SQLAlchemy that allowed a lightweight SQLite database to store meta data for server management purposes. These extensions based off of Flask were used to make endpoints to retrieve Binance exchange data from, as well as communicating with running bots or creating new instances of one.
+\noindent As stated in the aims of this project (Sec. \ref{sec:intro:aims}, pg. \pageref{sec:intro:aims}), the core services of the bot would be delivered as a web app using SaaS. The initial design choice of using a Flask web server was used to implement the communications backbone of the project. Extensions available to Flask allowed for extra functionality to be slotted into the web server. The extensions used in this project include Flask-RESTful that allowed the implementation of a REST API, Flask-SocketIO that allowed streaming two way communication between the server and client using WebSockets, and lastly Flask-SQLAlchemy that allowed a lightweight SQLite database to store meta data for server management purposes. These extensions are used to create endpoints to retrieve Binance exchange data from, as well as communicate with existing or create new instances of bots.
 
 \subsection{Binance Exchange Data}
 \label{sec:implementation:info_comm:binance_exchange_data}
 
 % required to fulfil FR-3, FR-8, NFR-2
 
+% TODO maybe use this in conclusion of impementation?
 %\noindent The goal to developing the project's web server was to provide all endpoints for data requests in one place. This meant that, as well as allowing the developed front end UI to communicate with the web server, it is also open and available to all other software that can communicate with HTTP endpoints. 
 
-\noindent During development, I initially discovered that modern browsers have security measures against directly requesting data that origins from external domains, such as \textit{http://api.binance.com}. This is used to prevent `Cross Site Scripting', that while not relevant to this project was an obstacle to developing this web app. A solution to this problem is to proxy the data requests through the web server that would forward the data with the correct configurations; as to let the web browser accept the incoming data. This restriction adheres to all request protocols except the WebSocket protocol, however to ensure consistency towards the origin point of accessing Binance's data, I also implemented WebSocket endpoints into the web server.
 
-Both WebSockets and REST APIs were used to forward market data to the UI and the bot data gatherer (SOME REF HERE TO DATA GATHERER). The data endpoints I required that were offered by Binance were wrapped by Sam McHardy's \cite{MISC:Python-Binance} Python-Binance wrapper. This allowed for accessing this data through a function call that provided the required arguments to access a coin pair's data. (CODE SNIPPET REFERENCE SOMEWHERE).  The endpoints provided required data that is relevant towards candlestick charts, order books and basic overview data of all coin pairs.
+% TODO include larger discussion of WebSockets as its a main technology in this application
+\noindent During development, I initially discovered that modern browsers have security measures against directly requesting data that origins from external domains like \textit{http://api.binance.com}. This prevents a web vulnerability known as \textit{\textbf{Cross Site Scripting}} that while not specifically relevant to this project, was an obstacle in development. A solution to this problem is to proxy the data requests through the web server that would forward the data with the correct configurations; as to let the web browser accept the incoming data that origins from external domains. This restriction adheres to all request protocols except the WebSocket protocol, however to ensure consistency towards the origin point of accessing Binance's data, I also implemented WebSocket endpoints into the web server.
+
+WebSockets and REST APIs were used to forward market data from the web server to the UI and the bot's data gatherer (See sec. \ref{sec:implementation:bot}, pg. \pageref{sec:implementation:bot}). The data endpoints that were required and offered by Binance were wrapped by Sam McHardy's \cite{MISC:Python-Binance} Python-Binance wrapper. This allowed for accessing this data through a function call that provided the required arguments to access a coin pair's data. The endpoints that were required provided data that is relevant towards candlestick charts, order books and basic overview data of all coin pairs.
 
 Binance supplies two variations of candlestick chart data, a historical data retrieval through a fetch request and live streaming of new data through WebSockets. It could be an option to continually gather all the data solely from the API via fetch request, however Binance has added weight costs to accessing any REST endpoint. Firstly, this raises concerns of maxing out the servers total allowed weight limit within a given interval that would result in an IP ban and would severely disrupt the operation of the bot. Lastly, a fetch request gathers all historical data within an interval. After the first fetch request, the same data would be sent to the web server again apart from the latest interval potentially being updated. Hence, I opted to perform an initial fetch request, then connect to the WebSocket endpoint to stream new candlestick data thereafter. 
+
+\begin{figure}[!htb]
+    \centering
+	\includegraphics[width=\textwidth]{content/graphics/diagrams/AD_KLINE.png}
+	\caption{Activity diagram of candlestick data: 
+	\textit{(a)} The web server emits candlestick data to WebSocket client}
+    
+	\label{fig:implementation:actor_dataflow}
+\end{figure}
 
 Binance provide documentation of what data to expect from their endpoints regarding both the REST API and WebSocket for candlestick data. Interestingly, the data is represented differently at either endpoint with the REST endpoint returning an array of arrays (CODE SNIPPET REFERENCE) and the WebSocket endpoint returning a dictionary object (CODE SNIPPET REFERENCE). % TODO expand and state why this is an issue
 For simplicity, the implemented web sever retrieves the data from both Binance endpoints and forwards this through a single WebSocket connection the user has made to the web server. This is done by the web server performing the fetch request to Binance and sending that to the user through it's own WebSocket connection. Then afterwards, starting its own WebSocket connection to Binance, mapping the dictionary to the fetch request format (SOME DATA REFERENCE) and forwarding the latest interval update to the user.
