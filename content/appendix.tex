@@ -57,6 +57,17 @@ if __name__ == '__main__':
 \end{code}
 
 
+\begin{code}
+\captionof{listing}{Calculating When The Next API Call Is Allowed}
+\label{code:impl:exchange_data:calc_next_interval}
+\begin{minted}{Python}
+# msOccuredAt is the time a 429 code is received
+# Calculation is done in millieseconds, e.g. 60000ms = 1 minute
+nextCallAt = floor( ( msOccuredAt / 60000) + 1) * 60000
+\end{minted}
+\end{code}
+
+
 \newpage
 \section{Use cases}
 
