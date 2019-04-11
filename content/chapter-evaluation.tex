@@ -65,7 +65,7 @@ A final point to make on these tasks is the little mention of the operational me
   \begin{tabularx}{\linewidth}{|c|c|L|c|} 
     \hline
     \textbf{ID} & \textbf{Endpoint Type} & \textbf{Description of Test} & \textbf{Outcome} \\ 
-    \hline
+    \hline\hline
     1  & API & Spam the \textbf{allCurrencyPairs} endpoint until a non-200 request is returned. & Pass    \\ 
     \hline
     2  & API &   Spam the \textbf{orderbook} endpoint until a non-200 request is returned.  & Pass    \\ 
@@ -91,7 +91,7 @@ While the first party endpoint weighting solution would prevent abuse and lower 
   \begin{tabularx}{\linewidth}{|c|c|L|} 
  \hline
 \textbf{ID} & \textbf{Endpoint URL} & \textbf{Description} \\ 
-\hline
+\hline\hline
 1  &   \textbf{allCurrencyPairs} & Returns overview data of all coin pairs.    \\ 
 \hline
 2  &  \textbf{orderbook@<coin-pair>} & Takes parameter \textit{<coin-pair>} (e.g. `BTCUSDT') and returns current orders in the order book for that coin pair.    \\ 
@@ -111,7 +111,7 @@ The exception responses from the data endpoints currently don't provide any othe
   \begin{tabularx}{\linewidth}{|c|c|L|} 
     \hline
     \textbf{ID} & \textbf{ \textit{namespace}@\textit{event}} & \textbf{Description} \\ 
-    \hline
+    \hline\hline
     1  &   \textbf{kline@connect} & Initial connection to candlestick data's namespace. Performs an API fetch to Binance to confirm its online and serving data. \\ 
     \hline
     2  & \textbf{kline@get\_klines} & Takes coin pair (e.g. BTCUSDT) as data on triggering this event. Performs initial API fetch to Binance for historic data, then creates a WebSocket connection to Binance's WebSocket endpoint and streams the historic and new data back to client who triggered the event. \\ 
@@ -134,7 +134,7 @@ The exception responses from the data endpoints currently don't provide any othe
   \begin{tabularx}{\linewidth}{|c|c|L|c|} 
     \hline
     \textbf{ID} & \textbf{Endpoint Type} & \textbf{Description of Test} & \textbf{Outcome} \\ 
-    \hline
+    \hline\hline
     1  & API & Start and stop the bot under normal conditions. & Pass    \\ 
     \hline
     2  & API &  Start the bot with missing arguments. & Pass    \\ 
@@ -158,7 +158,7 @@ Endpoint 1 in table \ref{sec:evaluation:web_testing:bot_apis} and \ref{sec:evalu
   \begin{tabularx}{\linewidth}{|c|c|L|} 
     \hline
     \textbf{ID} & \textbf{Endpoint URL} & \textbf{Description} \\ 
-    \hline
+    \hline\hline
     1  &   \textbf{bot/start} & Returns overview data of all coin pairs.    \\ 
     \hline
     2  &  \textbf{bot/stop@<hash-id>} & Takes parameter \textit{<hash-id>} (e.g. "fa25f6...") and returns response appropriate to the outcome of the operation.    \\ 
@@ -189,7 +189,7 @@ Unit test 6 tests a bot that is started through a WebSocket and receives a 429 s
   \begin{tabularx}{\linewidth}{|c|c|L|} 
     \hline
     \textbf{ID} & \textbf{ \textit{namespace}@\textit{event}} & \textbf{Description} \\ 
-    \hline
+    \hline\hline
     1  &   \textbf{communicator@bot\_start} & Initial connection to candlestick data's namespace. Performs an API fetch to Binance to confirm its online and serving data. \\ 
     \hline
   \end{tabularx}
@@ -202,10 +202,60 @@ Unit test 6 tests a bot that is started through a WebSocket and receives a 429 s
 % \noindent Evaluation of our server infrastructure implementation can be confirmed by our completion of requirements \textbf{NFR-1, NFR-2, NFR-6, and FR-9} in tables \ref{table:requirements:non_func} and \ref{table:requirements:func} (Pg. \pageref{table:requirements:non_func} and \pageref{table:requirements:func}). The analysis undertaken is equivalent to section \ref{sec:evaluation:tradeprocess}.
 
 
+
 \section{Strategies Comparison}
 \label{sec:evaluation:tradeprocess}
 
-\noindent The range of different strategies will be empirically evaluated and compared against one another by analysing their performance based on where the generated trade signals occur. These strategies will be evaluated on the BTC / USDT coin pair. A mock starting balance of 10,000 USDT (1 USDT = 1\$) will be used for each strategy and a commission rate of 0.1\% will occur on each trade to simulate real transactions that are subject to trading fees on cryptocurrency exchanges.
+\noindent The range of different strategies will be empirically evaluated and compared against one another by analysing their performance such as the amount of signals generated and the final net value. These strategies will be evaluated on the BTC / USDT coin pair. A mock starting balance of 10,000 USDT (1 USDT = 1\$, hereafter USDT will be represented as \$) will be used for each strategy and a commission rate of 0.1\% will occur on each signal to simulate real transactions that are subject to trading fees on cryptocurrency exchanges. A trade will buy or sell exactly 1 BTC at the closing price of an interval to make the comparisons straightforward. This means that if a buy signal is generated at \$4,800 and a sell signal at \$5,000, the total gross amount would be \$200. This would make the initial portfolio value of \$10,000 become the gross amount \$10,200. Then commission will be subtracted from the \$200 trade it to bring a total net amount.
+
+The strategy's generated signal data has been collected from the \textbf{13-03-19} to the \textbf{10-04-19}, which corresponds to one thousand 30 minute intervals. During this period, the BTC / USDT pair had a significant upward movement in price around three quarters of the way through this period with a mostly sideways moving market throughout the other intervals.
+
+\begin{table}[ht]
+\centering
+  \begin{tabularx}{\linewidth}{|c|L|c|c|c|} 
+    \hline
+    \textbf{ID} & \textbf{Strategy Name} & \textbf{Signals Generated} & \textbf{Net Portfolio} & \textbf{Net Profit$/$Loss} \\
+    \hline\hline
+    \textbf{1} & RSI & 2 & 10,062.00 & 62.00 \\
+    \hline
+    \textbf{2} & MACD & 105 & 10,239.98 & 239.98 \\
+    \hline
+    \textbf{3} & SMA Crossover & 51 & 10,614.42 & 614.42 \\
+    \hline
+    \textbf{4} & MA Crossover \& RSI & 0 & 10,000.00 & 0.00 \\
+    \hline
+    \textbf{5} & MA Crossover \& MACD & 47 & 10,550.62 & 550.62 \\
+    \hline
+    \textbf{6} & Bollinger Bands & 25 & 10,925.39 & 925.39 \\
+    \hline
+    \textbf{7} & Double Bollinger Bands & 1 & 11,501.65 & 1,501.65 \\
+    \hline
+  \end{tabularx}
+\caption{The total number of signals generated and the net portfolio that is resultant of the default parameters for each strategy. The \textbf{Net} column headers are in USDT.}
+\label{sec:evaluation:strats:performance}
+\end{table}
+
+\noindent Strategy 1  in table \ref{sec:evaluation:strats:performance} shows the performance of the RSI strategy - with the upper threshold at 70 and the lower threshold at 30 - to be quite conserved, generating 2 signals over the month period. The signals also created one of the minimal totals of profit compared to the other strategies at a total of \$62.00. 
+The RSI strategy's long signal was generated at the price \$3910.00 and the sell signal at \$3972.00, but looking at the candlestick chart of these signals shows a concerning historic price movement. Before the short signal, the market dipped drastically to only spike and recover. 
+
+As the RSI indicator defines overbought or oversold conditions, it fails to react to the market and therefore could easily have resulted in a significant loss of the portfolio. Furthermore, by looking at the candlestick charts in figure \ref{fig:eval:strats:rsi_signals}, they suggest that a market reversal is not 100\% certain due to the chart price progression following the last short signal. The market actually continues to trend upwards for the rest of the month. The strategy may have benefited from smaller thresholds in this specific instance as the whipsaws between these two signals nearly cross the thresholds but fall short.
+
+\begin{figure}[ht]
+  \centering
+  \subfloat[Upper threshold 70 and lower threshold 30]{\includegraphics[width=0.49\textwidth]{content/graphics/rsi_default_sg1_sg2.PNG}\label{fig:f1}}
+  \hfill
+  \subfloat[Upper threshold 60 and lower threshold 40]{\includegraphics[width=0.49\textwidth]{content/graphics/rsi_60_40_same_period.PNG}\label{fig:f2}}
+  \caption{RSI strategy trade signals with different thresholds}
+  \label{fig:eval:strats:rsi_signals}
+\end{figure}
+
+Specifying the upper threshold at 60 and the lower threshold at 40 actually returns a more profitable strategy. 26 signals are generated rather than 2, with a net portfolio value of \$10,498.73. This is a significant improvement over the default 70 and 30 values. However, comparing the figure \ref{fig:f2} with fig \ref{fig:f1} which span the same period, it is clear that the strategy doesn't find the lowest price of significant drops. The first long signal in figure \ref{fig:f2} is generated before it reaches the lowest price. Although, it does manage to generate the signals within the whipsaws, the lower thresholds still fail to react to the sudden drop off before the last shown signal.
+
+It could be argued that the thresholds at 60 and 40 produce less risk as they generate signals between smaller price ranges. This means that the larger price difference displayed at the 70 and 30 threshold chart would be less likely to occur, reducing the amount of assets being traded at once. Lots of smaller trades also add up as evident by the greater profit gain from the parameters of this strategy. This strategy with the 60 and 40 parameters is still far from perfect however, as the indicators prematurely enter or exit a position before the best price is found.
+
+Strategy 2 in table \ref{sec:evaluation:strats:performance} shows the performance of the MACD indicator to be quite aggressive, generating 105 signals throughout the month period. While displaying an extensively aggressive number of signals over the month, it did generate more profit than the RSI strategy at \$239.98, resulting in \$177.98 more profit. 
+ 
+
 
 % \noindent Evaluation of the trade process implementation can be confirmed by our completion of requirements \textbf{NFR-3, NFR-4, and FR-10} in tables \ref{table:requirements:non_func} and \ref{table:requirements:func} (Pg. \pageref{table:requirements:non_func} and \pageref{table:requirements:func}). The analysis undertaken for this evaluation will be a review of the features implemented, provided by code snippets and related outputs. Such evaluations will analyse the use of SMA vs. EMA and applying different RSI thresholds as discussed in section \ref{sec:related:tradingStrategies} (Pg. 11, 12).
 
