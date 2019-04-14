@@ -119,7 +119,7 @@ Overall, the actor model is beneficial towards the development of this project b
 \label{sec:implementation:frontend}
 
 % TODO add react and redux to lit review
-\noindent Implementation of the front end can be categorised into two main sections, data visualisation of Binance's market data, and user controls and notifications of the platform. Both sections utilise two main technologies, React and Redux. As discussed in section \ref{sec:design:frontend} (Pg. \pageref{sec:design:frontend}), Redux is an \textbf{application state manager} and React is a \textbf{UI library}. Both technologies integrate well together, with React creating self-contained components and Redux tying them together with a central \textit{store}.
+\noindent Implementation of the front end can be categorised into two main sections, data visualisation of Binance's market data, and user controls and notifications of the platform. Both sections utilise two main technologies, React which is a \textbf{UI library} and Redux which is an \textbf{application state manager}. Both technologies integrate well together, with React creating self-contained components and Redux tying them together with a central \textit{store}.
 
 % Quick redux example, react example
 Redux was necessary to allow actions of controllers update the rest of the UI. For example, selecting a different coin pair such as ETH/USDT would trigger an action to update the store's state to what the current coin pair is selected. This would then cause the candlestick chart, order book, quick information panel and bot controller options to update. 

@@ -204,17 +204,18 @@ Unit test 6 tests a bot that is started through a WebSocket and receives a 429 s
 
 
 \section{Strategies Comparison}
-\label{sec:evaluation:tradeprocess}
+\label{sec:evaluation:strats}
 
-\noindent The range of different strategies will be empirically evaluated and compared against one another by analysing their performance such as the amount of signals generated and the final net value. These strategies will be evaluated on the BTC / USDT coin pair. A mock starting balance of 10,000 USDT (1 USDT = 1\$, hereafter USDT will be represented as \$) will be used for each strategy and a commission rate of 0.1\% will occur on each signal to simulate real transactions that are subject to trading fees on cryptocurrency exchanges. A trade will buy or sell exactly 1 BTC at the closing price of an interval to make the comparisons straightforward. This means that if a buy signal is generated at \$4,800 and a sell signal at \$5,000, the total gross amount would be \$200. This would make the initial portfolio value of \$10,000 become the gross amount \$10,200. Then commission will be subtracted from the \$200 trade it to bring a total net amount.
+\noindent A range of different strategies will be empirically evaluated and compared against one another by analysing their performance such as the amount of signals generated and the final net value. These strategies will be evaluated on the BTC / USDT coin pair. A mock starting balance of 10,000 USDT (1 USDT = 1\$, hereafter USDT will be represented as \$) will be used for each strategy and a commission rate of 0.1\% will occur on each signal to simulate real trades that are subject to trading fees on cryptocurrency exchanges. A trade will buy or sell exactly 1 BTC at the closing price of the interval of the signal to make the comparisons straightforward. This means that if a buy signal is generated at \$4,800 and a sell signal at \$5,000, the total gross amount would be \$200. This would make the initial portfolio value of \$10,000 become the gross amount \$10,200. Then commission will be subtracted from the \$200 trade it to bring a total net amount.
 
 The strategy's generated signal data has been collected from the \textbf{13-03-19} to the \textbf{10-04-19}, which corresponds to one thousand 30 minute intervals. During this period, the BTC / USDT pair had a significant upward movement in price around three quarters of the way through this period with a mostly sideways moving market throughout the other intervals.
-
+ 
+ \iffalse
 \begin{table}[ht]
 \centering
   \begin{tabularx}{\linewidth}{|c|L|c|c|c|} 
     \hline
-    \textbf{ID} & \textbf{Strategy Name} & \textbf{Signals Generated} & \textbf{Net Portfolio} & \textbf{Net Profit$/$Loss} \\
+    \textbf{ID} & \textbf{Strategy Name} & \textbf{Signals Generated} & \textbf{Net Portfolio} & \textbf{Net Profit} \\
     \hline\hline
     \textbf{1} & RSI & 2 & 10,062.00 & 62.00 \\
     \hline
@@ -222,9 +223,9 @@ The strategy's generated signal data has been collected from the \textbf{13-03-1
     \hline
     \textbf{3} & SMA Crossover & 51 & 10,614.42 & 614.42 \\
     \hline
-    \textbf{4} & MA Crossover \& RSI & 0 & 10,000.00 & 0.00 \\
+    \textbf{4} & SMA Crossover \& RSI & 0 & 10,000.00 & 0.00 \\
     \hline
-    \textbf{5} & MA Crossover \& MACD & 47 & 10,550.62 & 550.62 \\
+    \textbf{5} & SMA Crossover \& MACD & 47 & 10,550.62 & 550.62 \\
     \hline
     \textbf{6} & Bollinger Bands & 25 & 10,925.39 & 925.39 \\
     \hline
@@ -234,33 +235,213 @@ The strategy's generated signal data has been collected from the \textbf{13-03-1
 \caption{The total number of signals generated and the net portfolio that is resultant of the default parameters for each strategy. The \textbf{Net} column headers are in USDT.}
 \label{sec:evaluation:strats:performance}
 \end{table}
+\fi
 
-\noindent Strategy 1  in table \ref{sec:evaluation:strats:performance} shows the performance of the RSI strategy - with the upper threshold at 70 and the lower threshold at 30 - to be quite conserved, generating 2 signals over the month period. The signals also created one of the minimal totals of profit compared to the other strategies at a total of \$62.00. 
-The RSI strategy's long signal was generated at the price \$3910.00 and the sell signal at \$3972.00, but looking at the candlestick chart of these signals shows a concerning historic price movement. Before the short signal, the market dipped drastically to only spike and recover. 
+\subsection{RSI Strategy}
+\label{sec:evaluation:strats:rsi}
 
-As the RSI indicator defines overbought or oversold conditions, it fails to react to the market and therefore could easily have resulted in a significant loss of the portfolio. Furthermore, by looking at the candlestick charts in figure \ref{fig:eval:strats:rsi_signals}, they suggest that a market reversal is not 100\% certain due to the chart price progression following the last short signal. The market actually continues to trend upwards for the rest of the month. The strategy may have benefited from smaller thresholds in this specific instance as the whipsaws between these two signals nearly cross the thresholds but fall short.
+\noindent The performance of the RSI with configuration 1 in table \ref{sec:evaluation:strats:rsi_allvariants} seems to be quite reserved by only generating 2 signals over the month period. The signals for this configuration created the least total profit compared to the other strategies with a total of \$62.00. 
+
+\begin{table}[ht]
+\centering
+  \begin{tabularx}{\linewidth}{|c|L|L|L|L|L|} 
+    \hline
+    \textbf{ID} & \textbf{Upper Threshold} & \textbf{Lower Threshold} & \textbf{Signals Generated} & \textbf{Net Profit} \\
+    \hline\hline
+    \textbf{1} & 70 & 30 & 2 & 62.00 \\
+    \hline
+    \textbf{2} & 60 & 40 & 26 & 498.00 \\
+    \hline
+    \textbf{3} & 80 & 20 & 2 & 202.15 \\
+    \hline
+  \end{tabularx}
+\caption{\textbf{RSI} strategy with all configuration variants that were evaluated; ID 1 is the default parameters for this strategy; The {Net} column headers are in USDT.}
+\label{sec:evaluation:strats:rsi_allvariants}
+\end{table}
+
+Configuration 1's long signal was generated at the price \$3910.00 and the sell signal at \$3972.00, but looking at the candlestick chart at figure \ref{fig:f1} for these signals, they show a concerning price movement. Before the short signal (red downwards arrow), the market dipped drastically; to then only spike and recover.  As the RSI indicator defines overbought or oversold conditions, it fails to react to the market and therefore could easily have resulted in a significant loss of the portfolio. Furthermore, by looking at the candlestick charts in figure \ref{fig:eval:strats:rsi_signals}, they suggest that a market reversal is not 100\% certain due to the chart price progression following the last short signal. The market actually continues to trend upwards for the rest of the month. The strategy may have benefited from smaller thresholds in this specific instance as the whipsaws between these two signals nearly cross the thresholds but fall short.
 
 \begin{figure}[ht]
   \centering
-  \subfloat[Upper threshold 70 and lower threshold 30]{\includegraphics[width=0.49\textwidth]{content/graphics/rsi_default_sg1_sg2.PNG}\label{fig:f1}}
+  \subfloat[Upper threshold 70 and lower threshold 30]{\includegraphics[width=0.495\textwidth]{content/graphics/rsi_default_sg1_sg2.PNG}\label{fig:f1}}
   \hfill
-  \subfloat[Upper threshold 60 and lower threshold 40]{\includegraphics[width=0.49\textwidth]{content/graphics/rsi_60_40_same_period.PNG}\label{fig:f2}}
+  \subfloat[Upper threshold 60 and lower threshold 40]{\includegraphics[width=0.5\textwidth]{content/graphics/rsi_60_40_same_period.PNG}\label{fig:f2}}
   \caption{RSI strategy trade signals with different thresholds}
   \label{fig:eval:strats:rsi_signals}
 \end{figure}
 
-Specifying the upper threshold at 60 and the lower threshold at 40 actually returns a more profitable strategy. 26 signals are generated rather than 2, with a net portfolio value of \$10,498.73. This is a significant improvement over the default 70 and 30 values. However, comparing the figure \ref{fig:f2} with fig \ref{fig:f1} which span the same period, it is clear that the strategy doesn't find the lowest price of significant drops. The first long signal in figure \ref{fig:f2} is generated before it reaches the lowest price. Although, it does manage to generate the signals within the whipsaws, the lower thresholds still fail to react to the sudden drop off before the last shown signal.
+For configuration 2 in table \ref{sec:evaluation:strats:rsi_allvariants}, the upper and lower thresholds at 60 and 40 respectively, return a more profitable strategy. 26 signals are generated rather than 2, with a net portfolio value of \$10,498.73. This is a significant improvement over the default 70 and 30 values. However, comparing the figure \ref{fig:f2} with fig \ref{fig:f1} which span the same period, it is clear that the strategy doesn't find the lowest price of significant drops. The first long signal in figure \ref{fig:f2} is generated before it reaches the lowest price. Although, it does manage to generate the signals within the whipsaws, the lower thresholds still fail to react to the sudden drop off before the last shown signal.
 
 It could be argued that the thresholds at 60 and 40 produce less risk as they generate signals between smaller price ranges. This means that the larger price difference displayed at the 70 and 30 threshold chart would be less likely to occur, reducing the amount of assets being traded at once. Lots of smaller trades also add up as evident by the greater profit gain from the parameters of this strategy. This strategy with the 60 and 40 parameters is still far from perfect however, as the indicators prematurely enter or exit a position before the best price is found.
 
-Strategy 2 in table \ref{sec:evaluation:strats:performance} shows the performance of the MACD indicator to be quite aggressive, generating 105 signals throughout the month period. While displaying an extensively aggressive number of signals over the month, it did generate more profit than the RSI strategy at \$239.98, resulting in \$177.98 more profit. 
- 
 
+\subsection{MACD Strategy}
+\label{sec:evaluation:strats:macd}
+
+\noindent The performance of the MACD strategy with configuration 1 in table \ref{sec:evaluation:strats:macd_allvariants} shows it to be quite aggressive, generating 105 signals throughout the month period. With this, it managed to generate more profit than the RSI strategy with the default parameter options at \$239.98, resulting in \$177.98 more profit. Unlike the RSI strategy, lowering the period lengths for the parameter options for MACD looks to correlate with poor performance. MACD variation 2 in table \ref{sec:evaluation:strats:macd_allvariants} generated 239 signals resulting in a final portfolio balance of \$10,032.24. This makes \$32.24 profit by the end of the month on 239 trades.
+
+\begin{table}[ht]
+\centering
+  \begin{tabularx}{\linewidth}{|c|L|L|L|L|L|L|} 
+    \hline
+    \textbf{ID} & \textbf{Small MA Period} & \textbf{Long MA Period}  & \textbf{Signal MA Period}  & \textbf{Signals Generated} & \textbf{Net Profit} \\
+    \hline\hline
+    \textbf{1} & 12 & 26 & 9 & 2 & 62.00 \\
+    \hline
+    \textbf{2} & 6 & 13 & 4 & 239 & 32.24 \\
+    \hline
+    \textbf{3} & 18 & 32 & 12 & 71 & 320.39 \\
+    \hline
+  \end{tabularx}
+\caption{\textbf{MACD} strategy with all configuration variants that were evaluated; ID 1 is the default parameters for this strategy; The \textbf{Net} column headers are in USDT.}
+\label{sec:evaluation:strats:macd_allvariants}
+\end{table}
+ 
+This appears to be because of the market moving sideways for the majority of the month, where the MACD is generating signals on whipsaws of the price and responding hastily to the small period lengths. MACD variation 3 in table \ref{sec:evaluation:strats:macd_allvariants} improves on the other two variations significantly by increasing to longer periods. This suggests that using MACD over longer intervals proves more profitable in the crypto markets as it takes longer to confirm a change in the trend of the market. This ultimately reduces the generation of signals on whipsaws.
+
+
+
+\subsection{MA Crossover Strategy}
+\label{sec:evaluation:strats:ma_cross}
+
+\noindent The performance of the MA Crossover strategy with configuration 1 in table \ref{sec:evaluation:strats:ma_allvariants} shows an improved net profit compared to the any of RSI or MACD strategy configurations. This strategy trades on the averages of a small MA period crossing a longer MA period to signify when a change in the trend of the market occurs. As discussed in section \ref{sec:related:tradingStrategies} (Pg. \pageref{sec:related:tradingStrategies}), a comparison of the two moving average types, simple and exponential, will determine which better aids in confirming trends in the crypto market.
+
+\begin{table}[ht]
+\centering
+  \begin{tabularx}{\linewidth}{|c|L|L|L|L|L|L|} 
+    \hline
+    \textbf{ID} & \textbf{Small MA Period} & \textbf{Long MA Period}  & \textbf{MA Type}  & \textbf{Signals Generated} & \textbf{Net Profit} \\
+    \hline\hline
+    \textbf{1} & 15 & 30 & Simple & 51 & 614.43 \\
+    \hline
+    \textbf{2} & 15 & 30 & Exponential & 39 & 903.00 \\
+    \hline
+    \textbf{3} & 7 & 15 & Simple & 113 & 347.39 \\
+    \hline
+    \textbf{4} & 7 & 15 & Exponential & 93 & 488.35 \\
+    \hline
+    \textbf{5} & 20 & 40 & Simple & 35 & 993.14 \\
+    \hline
+    \textbf{6} & 20 & 40 & Exponential & 31 & 927.14 \\
+    \hline
+    \textbf{7} & 27 & 53 & Simple & 27 & 1,221.49 \\
+    \hline
+    \textbf{8} & 27 & 53 & Exponential & 19 & 1,141.56 \\
+    \hline
+  \end{tabularx}
+\caption{\textbf{MA Crossover} strategy with all configuration variants that were evaluated; ID 1 is the default parameters for this strategy; The \textbf{Net} column headers are in USDT.}
+\label{sec:evaluation:strats:ma_allvariants}
+\end{table}
+
+Comparing configuration 1 and 2 in table \ref{sec:evaluation:strats:ma_allvariants} displays a significant difference on how the same strategy performs. Using exponential moving averages generates a smaller number of signals that totals to more net profit. This may be indicative of the EMA adjusting to more recent interval prices and not being influenced by the older intervals. This would make the most sense in the crypto market, as it can fluctuate rapidly with no real motive to large movements in price. This can be seen at some figure that shows the massive pump....
+
+The configurations 3 and 4 use shorter periods and generate 113 and 93 signals respectively. Also telling by the RSI and MACD strategies, the leniency of the smaller periods make the indicators create a signal more frequently. This means the signals are more responsive to smaller changes in the market, however this can cause a chaotic event of signals which are usually not profitable to trade on in a market moving sideways. This appears to be why the more signals generated, the less profitable they are in the case of the MA crossover. Compared to the MACD strategy, the smallest net profit of any MA crossover configuration is still more profitable than the largest net profit of any MACD configuration.
+
+In the configurations 5 and 6 and 7 and 8, the SMA configurations are actually more profitable than the EMA counterparts. These configurations increase the length of the periods from the default configuration 1 and 2. This suggests that an EMA copes better with smaller periods to produce a more profitable strategy, whereas for longer periods the SMA will produce more signals which add up to be more profitable. It could be argued that per signal the EMA is more profitable at 19 signals for configuration 8, which results to \$60 profit per signal. Comparing this to the 27 signals from configuration 7 that results to roughly \$45 per signal, it clearly shows that the EMA tends to generate signals which are more profitable.
+
+All together, the EMA appears to support the MA crossover strategy stronger than the SMA. This is apparent in it's greater net profit in configurations 2 and 4 compared to 1 and 3. In the larger periods, it does fall behind in total net profit, however, the profit per signal still favours the EMA. This strategy also looks to outperform both the RSI and MACD strategies, however combining either of these indicators may enhance this strategy further and hence will be investigated in section \ref{sec:evaluation:strats:ma_cross_combs}.
 
 % \noindent Evaluation of the trade process implementation can be confirmed by our completion of requirements \textbf{NFR-3, NFR-4, and FR-10} in tables \ref{table:requirements:non_func} and \ref{table:requirements:func} (Pg. \pageref{table:requirements:non_func} and \pageref{table:requirements:func}). The analysis undertaken for this evaluation will be a review of the features implemented, provided by code snippets and related outputs. Such evaluations will analyse the use of SMA vs. EMA and applying different RSI thresholds as discussed in section \ref{sec:related:tradingStrategies} (Pg. 11, 12).
 
 
-\section{Evaluation Review}
+\subsection{MA Crossover Strategy Combinations}
+\label{sec:evaluation:strats:ma_cross_combs}
+
+\noindent Investigating whether the MA Crossover strategy can be improved with the combination of the RSI or MACD indicator will be discussed in this section. The RSI, MACD and MA Crossover are discussed individually in the sections \ref{sec:evaluation:strats:rsi}, \ref{sec:evaluation:strats:macd}, and \ref{sec:evaluation:strats:ma_cross} respectively. The MA Crossover and the conjoined indicator's - either RSI or MACD - performance is displayed in table \ref{sec:evaluation:strats:ma_rsi_allvariants}. The MA Crossover is using the default configurations specified in table \ref{sec:evaluation:strats:ma_allvariants} above with only the MA types being interchanged between simple and exponential.
+
+\begin{table}[ht]
+\centering
+  \begin{tabularx}{\linewidth}{|c|L|L|L|L|L|c|} 
+    \hline
+    \textbf{ID} & \textbf{Upper Threshold} & \textbf{Lower Threshold}  & \textbf{MA Type}  & \textbf{Signals Generated} & \textbf{Net Profit} \\
+    \hline\hline
+    \textbf{1} & 70 & 30 & Simple & 0 & 0.00 \\
+    \hline
+    \textbf{2} & 70 & 30 & Exponential & 0 & 0.00 \\
+    \hline
+    \textbf{3} & 60 & 40 & Simple & 15 & 608.94 \\
+    \hline
+    \textbf{4} & 60 & 40 & Exponential & 3 & 1,350.65 \\
+    \hline
+  \end{tabularx}
+\caption{\textbf{MA Crossover} strategy using the \textbf{RSI} indicator with all configuration variants that were evaluated; ID 1 is the default parameters for this strategy; The \textbf{Net} column headers are in USDT.}
+\label{sec:evaluation:strats:ma_rsi_allvariants}
+\end{table}
+
+The configurations 1 and 2 in table \ref{sec:evaluation:strats:ma_rsi_allvariants} failed to generate any signals with the simple or exponential variant. This result can understood by looking at table \ref{sec:evaluation:strats:rsi_allvariants} (Pg. \pageref{sec:evaluation:strats:rsi_allvariants}) where configuration 1 only generates two possible signals. Thus, the RSI and MA Crossover have little opportunity occur simultaneously. The same result occurs when the upper and lower threshold are 80 and 20 respectively, so are not listed in table \ref{sec:evaluation:strats:ma_rsi_allvariants}.
+
+The configurations 3 and 4 in table \ref{sec:evaluation:strats:ma_rsi_allvariants} manage to produce relatively good profitable signals in comparison to configuration 1 and 2 in the standard MA Crossover strategy in table \ref{sec:evaluation:strats:ma_allvariants}. Configuration 3 manages to have an almost equivalent amount of net profit as configuration 1 in table \ref{sec:evaluation:strats:ma_allvariants}, but with a significantly lower number of signals. This suggests that the inclusion of a lenient RSI threshold solidifies when a change in the market direction occurs with the profit resulting to \$40.96 per signal on average compared to \$12.05 per signal on average. Configuration 4 performs substantially better than configuration 2 in table \ref{sec:evaluation:strats:ma_allvariants} by generating 3 signals in total. The first and second signal were a large period apart, being generated on the 17th of March and the 5th of April. This strategy suggests it ignores sideways or small price movements quite well and triggers signals on the wider market range. This configuration is the best result in terms of profit than any other strategy or configuration.
+
+\begin{table}[ht]
+\centering
+  \begin{tabularx}{\linewidth}{|c|L|L|L|L|L|L|} 
+    \hline
+    \textbf{ID}  & \textbf{Small MA Period} & \textbf{Long MA Period}  & \textbf{MA Type}  &  \textbf{MA Type}  & \textbf{Signals Generated} & \textbf{Net Profit} \\
+    \hline\hline
+    \textbf{1} & 12 & 26 & 9 & Simple & 47 & 550.62 \\
+    \hline
+    \textbf{2} & 12 & 26 & 9 & Exponential & 39 & 903.70 \\
+    \hline
+    \textbf{3} & 6 & 13 & 4 & Simple & 47 & 465.87 \\
+    \hline
+    \textbf{4} & 6 & 13 & 4 & Exponential & 39 & 877.30 \\
+    \hline
+    \textbf{5} & 18 & 32 & 12 & Simple & 45 & 599.30 \\
+    \hline
+    \textbf{6} & 18 & 32 & 12 & Exponential & 37 & 889.96 \\
+    \hline
+  \end{tabularx}
+\caption{\textbf{MA Crossover} strategy using the \textbf{MACD} indicator with all configuration variants that were evaluated; ID 1 is the default parameters for this strategy; The \textbf{Net} column headers are in USDT.}
+\label{sec:evaluation:strats:ma_macd_allvariants}
+\end{table}
+
+Every configurations in table \ref{sec:evaluation:strats:ma_macd_allvariants} produce results on par or worse than just the MA Crossover strategy by itself. This suggests that the MACD strategy does not benefit the MA Crossover strategy by conjoining them with any variant of the configuration. Analysing this logically, both the MACD and MA Crossover both generate signals when one type of MA crosses the other. Thus, the lack of distinction in how signals are generated suggests that the MACD indicator may be blocking profitable signals and not adding any other value to the strategy.
+
+After analysing the RSI and MACD indicator, it is clear to see that an RSI with a lenient threshold can generate more profitable signals than the MA Crossover strategy by itself. The MACD indicator fails to be more profitable in any configuration and thus is not recommended to conjoined with this strategy.
+
+\subsection{Bollinger \& Double Bollinger Bands}
+\label{sec:evaluation:strats:bb_double_bb}
+
+\noindent The performance of the Bollinger and Double Bollinger Bands displayed in table \ref{sec:evaluation:strats:bb_allvars} suggest the Double Bollinger Band is less profitable. Analysing the candlestick data charts show this to be caused by the whipsaws in the sideways market movement. This is prevalent in the Double Bollinger Band as the closing price of an interval doesn't have to close over the furthest upper or lower band to generate a signal. Therefore, sideways moving markets generate many unprofitable signals. This is reflected in the number of signals generated for each `Double BB' row in contrast to their `BB' counterpart row.
+
+\begin{table}[ht]
+\centering
+  \begin{tabularx}{\linewidth}{|c|L|L|L|L|} 
+    \hline
+    \textbf{ID} & \textbf{Period} & \textbf{BB Type} & \textbf{Signals Generated} & \textbf{Net Profit} \\
+    \hline\hline
+    \textbf{1} & 20 & BB & 45 & 925.39 \\
+    \hline
+    \textbf{2} & 20 & Double BB & 61 & 555.00 \\
+    \hline
+    \textbf{3} & 10 & BB & 25 & 579.91 \\
+    \hline
+    \textbf{4} & 10 & Double BB & 119 & 375.25 \\
+    \hline
+    \textbf{5} & 30 & BB & 19 & 1,024.95 \\
+    \hline
+    \textbf{6} & 30 & Double BB & 37 & 919.69 \\
+    \hline
+    \textbf{7} & 40 & BB & 13 & 1,039.10 \\
+    \hline
+    \textbf{8} & 40 & Double BB & 35 & 883.32 \\
+    \hline
+    \textbf{9} & 50 & BB & 9 & 1,135.82 \\
+    \hline
+    \textbf{10} & 50 & Double BB & 29 & 919.60 \\
+    \hline
+  \end{tabularx}
+\caption{\textbf{Bollinger} and \textbf{Double Band} strategy using with all configuration variants that were evaluated; ID 1 is the default parameters for the \textbf{Bollinger Band} strategy; The \textbf{Net} column headers are in USDT.}
+\label{sec:evaluation:strats:bb_allvars}
+\end{table}
+
+A price closing above the upper band in the Bollinger Bands strategy appears to align with Kaufman's \cite{BOOK:Kaufman:2013} analysis where the price ensues a continued trend in an upward trajectory. While this doesn't occur in every instance, the chart period being evaluated matches this for the most part. Increasing the period lengths for both Bollinger Band types reduces the number of signals but further increases the net profit. This is a common occurrence throughout every strategy evaluated in this section, suggesting that the indicators work best when a trend is strongly backed by lengthy periods.
+
+Configuration 1 in table \ref{sec:evaluation:strats:bb_allvars} is comparable to configuration 2 for the EMA Crossover in table \ref{sec:evaluation:strats:ma_allvariants} in regards to the net profit with a total difference of \$22.39. The Bollinger Band generates the extra profit in more trades but suggests the strategy can identify more signal opportunities with less profit on average. Configuration 3 in table \ref{sec:evaluation:strats:bb_allvars} significantly outperforms any other indicator using their smallest periods with a net profit of \$579.91, suggesting the Bollinger Band is capable of confirming the market trend on small scales of intervals. Configurations 5, 7, and 9 also suggest that the Bollinger Band can detect the market trend confidently on larger intervals. 
+
+In comparison, configuration 1, 3, 5, and 7 outperform configurations 1 to 6 in table \ref{sec:evaluation:strats:ma_allvariants} in total net profit and more profit per signal in the larger period configurations (3, 5, and 7). Configuration 9 is outperformed by the largest tested SMA and EMA configurations (7 and 8 in table \ref{sec:evaluation:strats:ma_allvariants}), however is substantially more profitable per signal. Ultimately, the RSI and MA Crossover strategy with configuration 4 in table \ref{sec:evaluation:strats:ma_rsi_allvariants} tops all the other configuration performances, but the Bollinger Band configurations consistently perform better on average using all its variations. 
+
+\section{Evaluation Conclusion}
 \label{sec:evaluation:review}
 
 \noindent The three listed components cover the range of this projects scope. The main focus will be on the Trade Process, swapping in different trade indicators and evaluating their performances. More challenging scopes for evaluation will be the implementation of joing the web app together as whole.
