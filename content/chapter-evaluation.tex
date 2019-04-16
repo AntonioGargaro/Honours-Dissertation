@@ -8,45 +8,168 @@ The evaluation of this project was split into three categories. A system usabili
 
 \section{Web App Usability}
 \label{sec:evaluation:ui}
-\noindent The purpose of the system usability evaluation aims to identify if the web app is intuitive for new and experienced users to the cryptocurrency market and evaluates the implementation of the front end (Sec. \ref{sec:implementation:frontend}, pg. \pageref{sec:implementation:frontend}). The candidates level of knowledge on cryptocurrencies and their experience of using cryptocurrency or stock markets was recorded to identify how the web app is used with these different levels of experience, and what issues the candidates faced. The evaluation required the candidate to complete tasks using the web app and to provide feedback and rate the tasks while being observed. The tasks tested how the web app presents,
-\begin{enumerate}
-\item Coin pair information
-\item Controls for the bot
-\item Trade signals 
-\item Strategy configurations
-\item Feedback on operations executed by the bot
-\item Selection of different coin pairs
-\item Live market depth
-\end{enumerate}
+\noindent The purpose of the system usability evaluation aims to identify if the web app is intuitive for new and experienced users to the cryptocurrency market and evaluates the implementation of the front end (Sec. \ref{sec:implementation:frontend}, pg. \pageref{sec:implementation:frontend}). Ten candidate's level of knowledge on cryptocurrencies and their experience of using cryptocurrency or stock markets was recorded to identify how the web app is used with these different levels of experience, and what issues the candidates faced. The candidates experience are derived from the questions,
+\begin{itemize}
+	\item Have you heard of cryptocurrencies prior to this survey?
+    \item Do you have any experience with cryptocurrency or stock exchanges?
+    \item Do you have any experience with candlestick trading charts or technical indicators?
+\end{itemize}
+
+
+\noindent Figure \ref{fig:eval:web_app:heard_of_crypto} shows the candidate pool covers a wide range of expertise on cryptocurrencies with no candidate being unaware of them.
+
+  \begin{figure}[ht]
+  \centering
+ \includegraphics[width=0.65\textwidth]{content/graphics/heard_of_crypto.PNG}
+  \caption{Pie chart showing dispersion of candidates who have used cryptocurrencies}
+  \label{fig:eval:web_app:heard_of_crypto}
+\end{figure}
+
+\noindent Figure \ref{fig:eval:web_app:exp_with_crypto} shows the candidate pool are equally divided on their experience of using trading platforms.
+
+  \begin{figure}[ht]
+  \centering
+ \includegraphics[width=0.7\textwidth]{content/graphics/exp_with_crypto.PNG}
+  \caption{Pie chart showing dispersion of candidates who have used crypto/stock exchanges}
+  \label{fig:eval:web_app:exp_with_crypto}
+\end{figure}
+
+\noindent Figure \ref{fig:eval:web_app:exp_with_kline} shows the candidate pool have mostly never used or have some experience with candlestick charts.
+
+  \begin{figure}[ht]
+  \centering
+ \includegraphics[width=0.65\textwidth]{content/graphics/exp_with_kline.PNG}
+  \caption{Pie chart showing dispersion of candidates who have used candlestick charts}
+  \label{fig:eval:web_app:exp_with_kline}
+\end{figure}
+
+\subsection{The Tasks}
+\label{sec:evaluation:ui:tasks}
+\noindent The evaluation consisted of candidates completing a set tasks which were designed to test how the web app presents data, how easy this data is to understand, and how informed the user felt when using functionality. The evaluation required the candidate to complete tasks using the web app to provide feedback, rate aspects of it and be observed using it. This provided both \textbf{quantitative} and \textbf{qualitative} data to analyse the tasks within the same evaluation.
+
+Prior to starting, high level overviews of cryptocurrencies and trading markets were provided to the candidate. This gave context to candidates who have never used any trading platform or tool prior to the evaluation. Candidates were allowed to ask the investigator about general questions of the web app or market as a whole, although this was noted alongside the observations of the candidate.
+
+\begin{table}[ht]
+\centering
+  \begin{tabularx}{\linewidth}{|c|L|c|c|} 
+    \hline
+    \textbf{Task ID} & \textbf{Task} & \textbf{Type of Task} \\ 
+  \hline\hline
+  1  & On the "Trade Bot" page, please gather the coin pair currently selected, the last traded price, the highest 24 hour price, the lowest 24 hour price and the total volume traded in 24 hours of that coin pair.  & Collect Data  \\ 
+  \hline
+  2  & On the "Trade Bot" page, please start the bot.  & Bot Interaction  \\ 
+  \hline
+  3  & Following on from task 2, on the "Trade Bot" page, what indications are presented of a coin pair longing or shorting.  & Chart Analysis  \\ 
+  \hline
+ 4  & Following on from task 2, on the "Trade Bot" page, after the bot has already been started, please stop the bot.  & Bot Interaction  \\ 
+  \hline
+  5  & On the "Trade Bot" page, please select the "MA Crossover \& MACD" strategy with the configuration options below, start the bot and then stop the bot. & Strategy Selection   \\ 
+  \hline
+    6  & On the "Trade Bot" page, please select the coin pair BAT / BTC. & Coin Pair Selection  \\ 
+  \hline
+    7  & Following on from task 6, on the "Trade Bot" page, please identify the price and total amount of the smallest 'sell' and the largest 'buy' orders in the order book in their quote currency.  & Collect Data  \\ 
+  \hline
+  \end{tabularx}
+\caption{The tasks that the candidate performed and their type}
+\label{sec:evaluation:web_app:all_tests}
+\end{table}
 
 % TASK 1 IN EVAL
+\subsubsection{Task 1}
+\label{sec:evaluation:ui:tasks:q1}
+\noindent My initial hypothesis for task 1 was to be relatively straightforward as all this information is contained at the top of the web app. While this was partially true, this result mainly came from users who state they had at least some experience using a cryptocurrency exchange. Notable feedback for this task,
+\begin{itemize}
+\item "All the data was available on the top of the screen where your eyes naturally look for the information if you have used any form of stock trading."
+\item  "Naturally, I looked at the top of the screen as that is where a price ticker tends to be on a cryptocurrency exchange."
+\end{itemize}
 
-\noindent To analyse how the web app presents coin pair information, candidates were tasked with gathering information about what coin pair was currently selected, the last traded price, the highest and lowest 24 hour price and the total volume traded in 24 hours. My initial hypothesis for completing this task was to be relatively straightforward as all this information is contained at the top of the web app. While this was partially true, this result mainly came from users who state they had atleast some experience using a cryptocurrency exchange. One candidate stated, "All the data was available on the top of the screen where your eyes naturally look for the information if you have used any form of stock trading." Another states, "Naturally, I looked at the top of the screen as that is where a price ticker tends to be on a cryptocurrency exchange."
+\noindent Some candidates who have heard of cryptocurrency exchanges but never used one struggled with this. One candidate tried to find this data within the candlestick chart and coin pair listings, which does display relevant data, but not clearly or easily. Candidates with similar experience  stated that,
+\begin{itemize}
+\item "I am new to trading platforms, the GUI [\textit{appears to be}] busy and can be overwhelming. After a few minutes, you begin to get a feel for it and know what each section represents." 
+\end{itemize}
 
-However, some candidates who have only heard of cryptocurrency exchanges but have never used one struggled with this. One candidate tried to find this data within the candlestick chart and coin pair listings, which does display relevant data, but not clearly or easily. This candidate did complete the task after noticing the top bar but stated "I am new to trading platforms, the GUI [\textit{appears to be}] busy and can be overwhelming. However, after a few minutes, you begin to get a feel for it and know what each section represents." 
 
-% TODO may need updated with more candidates, maybe charts as well?
-Candidates could rate this task between 1 (Very difficult) and 5 (Very easy), where most rated it at a 5. This shows this design is intuitive and familiar with most candidates and suggests that understanding how to derive specific data from the panels is straightforward. Although, for inexperienced users, the initial learning curve looks to be the biggest issue with the lowest rating rated at a 2. This seems to persist as a repeating issue throughout this evaluation.
+% TODO may need updated with more candidates
+\noindent In figure \ref{fig:eval:web_app:task1_was_it_easy}, candidates rated task 1 between 1 (Very difficult) and 5 (Very easy), where most rated it at a 5. This shows the design is intuitive to the majority of candidates and suggests that understanding the panel is straightforward. Although, for inexperienced users, the initial learning curve looks to be the biggest issue with the lowest rating rated at a 1. This seems to persist as a repeating issue throughout this evaluation.
 
-From this first task, a clear distinction in knowledge attributes to the different approaches of completing it. Inexperienced users felt lost and overwhelmed within the UI and struggled to derive data displayed at the top of the page initially, whereas experienced users spotted this panel straightaway. A future solution to solve this issue may be to introduce a \textit{one-time pop up}. This pop up would occur on a users first visit to the page and present a quick description over each section of the UI. This would give the user a basic knowledge of what information the user is presented with and how to understand it as to allow them to be familiar with the web app as quick as possible.
+  \begin{figure}[ht]
+  \centering
+ \includegraphics[width=0.85\textwidth]{content/graphics/task1_was_it_easy.PNG}
+  \caption{Bar chart showing dispersion of candidates ratings of how easy/difficult task 1 was}
+  \label{fig:eval:web_app:task1_was_it_easy}
+\end{figure}
+
+%From this first task, a clear distinction in knowledge attributes to the different approaches of completing it. Inexperienced users felt lost and overwhelmed within the UI and struggled to derive data displayed at the top of the page initially, whereas experienced users spotted this panel straightaway. A future solution to solve this issue may be to introduce a \textit{one-time pop up}. This pop up would occur on a users first visit to the page and present a quick description over each section of the UI. This would give the user a basic knowledge of what information the user is presented with and how to understand it as to allow them to be familiar with the web app as quick as possible.
 
 % TASK 2 AND 4 IN EVAL
-\noindent Candidates were tasked to start the bot and then stop the bot in a later task. These tasks were issued separately and non-sequentially as they both require a similar approach to completing them. This can bring a measure to how candidates approach the web app as they become more familiar with it. All candidates found the button easy to identify when trying to locate it to start and stop the bot.
+\subsubsection{Task 2 \& 4}
+\label{sec:evaluation:ui:tasks:q2_q4}
+\noindent In tasks 2 and 4, candidates were tasked to both start and stop the bot. These tasks were issued separately and non-sequentially as they are both similar types of tasks. This can bring a measure to how candidates approach the web app as they become familiar with it. All candidates found the button easy to identify when trying to locate it. Candidates were also requested to provide feedback about how they could confirm the bot had successfully completed this operation and if they felt informed about what the bot's current status was. Notable feedback for the tasks were,
+\begin{itemize}
+\item "Very simply I clicked `START BOT' - then a helpful pop up displayed saying that automatic trading had started."
+\item "The button is clearly a toggle and it is natural to click it again to turn it off."
+\end{itemize}
+Most candidates found that the snackbar (\textit{pop-up}) notification was helpful in confirming the bot had completed the operation and that it was not intrusive on the web app. Some candidates noted on the button being a toggle for the operations and that it was "natural to click it again to turn it off". This provides clear testimonials that basic bot operations are concise and natural for a user to understand.
 
-Candidates were also requested to provide feedback about how they could confirm the bot had successfully completed this operation and if they felt informed about what the bot's current status was. Most candidates found that the snackbar (pop-up) notification was helpful in confirming the bot had completed the operation and that it was not intrusive on the web app. Some candidates noted on the button being a toggle for the operations and that it was "natural to click it again to turn it off". This provides clear testimonials that basic bot operations are concise and natural for a user to understand.
+After each task, candidates rated how informed they were of the bot's status scaled 1 (Very Unclear) to 5 (Very Clear) shown in figure \ref{fig:eval:web_app:start_stop_informed}. Most rated 5, however one candidate rated 1 on task 2 as they were unsure about what the bot's status meant. After explaining that it was to confirm that the bot had started, they changed their rating to 5 for task 4 (Fig. \ref{fig:eval:web_app:stop_informed}). Another candidate who is experienced with crypto exchanges rated 3 on task 2 and provided the feedback,  
+\begin{itemize}
+\item "The indicators don't give a lot of context as to what is happening, it requires some working out to realise that they obviously say \textit{up} and \textit{down}." 
+\end{itemize}
+The indicators in reference are generated signals on the candlestick chart that were not associated with this task. This feedback may derive from whether the candidate felt informed about what the bot had displayed on the candlestick chart rather than what the bot's current status was. Hence, on task 4 they rated 4 on feeling informed after completing task 3 on indicators. This strengthens the point that their is a learning curve to using the web app but users can become more familiar with it as they spend time using it, even when experienced with similar web apps such as crypto exchanges.
 
-After completing each task, candidates were asked to rate how clearly they were informed of the bots status on a scale between 1 (Very unclear) and 5 (Very clear). Most rated 5, stating that they were informed very clearly. However, one candidate, who describes themselves as spending a lot of time using cryptocurrency exchanges, rated 3 on the first task. On the second task that required the candidate to stop the bot, they increased their rating to a 4. This suggests that after spending time using the web app to complete similar task, a user becomes more familiar with how it operates and feels more informed about what to expect from the web app. This further confirms that their is a learning curve to using the web app and that users can become more familiar with it as they spend time using it.
+\begin{figure}[ht]
+  \centering
+  \subfloat[How informed the candidate felt when starting the bot.]{\includegraphics[width=0.495\textwidth]{content/graphics/start_informed.PNG}\label{fig:eval:web_app:start_informed}}
+  \hfill
+  \subfloat[How informed the candidate felt when stopping the bot.]{\includegraphics[width=0.495\textwidth]{content/graphics/stop_informed.PNG}\label{fig:eval:web_app:stop_informed}}
+  \caption{Scaled from 1 (Very Unclear) to 5 (Very Clear) on how users felt when performing tasks 2 and 4}
+  \label{fig:eval:web_app:start_stop_informed}
+\end{figure}
 
-This outcome is interesting however as this candidate has experience of cryptocurrency exchanges where their likeness pertains to this web app, yet they were one of the only candidates that did not feel they were clearly informed. This candidate left feedback after completing the first task stating, "The indicators don't give a lot of context as to what is happening, it requires some working out to realise that they obviously say \textit{up} and \textit{down}." While the indicators the bot generated on the candlestick chart were not a part of this task, only two candidates - both of whom are experienced with cryptocurrency exchanges - noticed the effect the bot had on the candlestick chart after starting it. The other candidate noted they felt very informed of the bot's current status even after noticing the signal indicators on the candlestick chart, so this may be the result of whether the first candidate felt informed about what the bot had displayed on the candlestick chart rather than what the bot's current status actually was. This will be discussed further in the trade signals discussion below.
+% TODO useful for conclusion
+%A final point to make on these tasks is the little mention of the operational messages panel. No candidate noted on it, favouring to look at the snackbar notification solely. This panel is important for keeping a log of current and past events as to allow a user to stay fully informed of all recent actions. This presents the issue that when important and descriptive notifications are displayed on this panel, they may be overlooked by the snackbar, which by design only highlights a high level overview message. A few solutions to making the push message panel more prominent could be to prevent the snackbar overlapping it, to add a transition animation for when a new message is received and to make it more attractive through colours. 
 
-A final point to make on these tasks is the little mention of the operational messages panel. No candidate noted on it, favouring to look at the snackbar notification solely. This panel is important for keeping a log of current and past events as to allow a user to stay fully informed of all recent actions. This presents the issue that when important and descriptive notifications are displayed on this panel, they may be overlooked by the snackbar, which by design only highlights a high level overview message. A few solutions to making the push message panel more prominent could be to prevent the snackbar overlapping it, to add a transition animation for when a new message is received and to make it more attractive through colours. 
 
-\noindent 
+\subsubsection{Task 3}
+\label{sec:evaluation:ui:tasks:q3}
+\noindent Task 3 required the candidate to identify long and short signals on the candlestick chart. A description of long and short signals were provided to the candidate prior to the question. From this, all candidates identified the arrows on the chart however some failed to understand their significance. Notable feedback for this task:
+\begin{itemize}
+    \item "I do not feel I had any indication of whether the coin may long or short - there is arrows now displaying on the graph that I could take a guess on but no other info."
+    \item "Green arrows are present before a rise in the graph. Red arrows are present before a drop."
+    \item "The arrows and the pink line!"
+\end{itemize}
+Not understanding the purpose of the arrow indicators came from candidates who are inexperienced with candlestick charts prior to the evaluation. Thus, the fact that all candidates were still able to recognise the arrows as indicators suggest they can symbolise change in market trends. Criticism of the indicators pertain to the lack of any extra information attached to them. Tooltip functionality occurs when hovering over the arrows but all candidates never attempted to interact with them. Therefore, a suggestion for future work would be to attach an icon to the chart to provide details about the functionality available. The lack of clear description about the functionality the arrow indicators provide is reflected in ratings in figure \ref{fig:eval:web_app:task3_clarity}. 
 
+
+\begin{figure}[ht]
+  \centering
+ \includegraphics[width=0.85\textwidth]{content/graphics/task3_clarity.PNG}
+  \caption{Scales from 1 (Very Unclear) to 5 (Very Clear) on how candidates felt when performing task 3}
+  \label{fig:eval:web_app:task3_clarity}
+\end{figure}
+
+
+\subsubsection{Task 5}
+\label{sec:evaluation:ui:tasks:q5}
+Task 5 required the candidate to select a strategy and set it's configurations. All candidates found this straightforward but a common issue was that they didn't know what the strategy or configurations were doing. Noteable feedback for this task:
+\begin{itemize}
+\item "Very easy to complete - every option was easy to find. I have no idea what I was changing."
+\item "The task was easy enough to do but I didn't not know what anything meant."
+\end{itemize}
+The strategy options are labelled and easy to identify as stated by most of the feedback. Providing adequate explanations of what the strategies and their configurations do is vital to reducing the complexity of the bot. Tooltips were suggested in the feedback, which is a feature currently implemented in the arrow indicators but failed to be recognised as an available functionality. Future work to resolve this issue would be to add icons that symbolise hoverable tooltips that provide information. Candidates generally found that selecting and configuring the strategy was very obvious as seen in figure \ref{fig:eval:web_app:task5_obvious}.
+
+\begin{figure}[ht]
+  \centering
+ \includegraphics[width=0.85\textwidth]{content/graphics/task5_obvious.PNG}
+  \caption{Scales from 1 (Not Very Obvious) to 5 (Very Obvious) on how candidates felt when performing task 5}
+  \label{fig:eval:web_app:task5_obvious}
+\end{figure}
 
 % Evaluation of the front end implementation will be compared towards the functional requirements \textbf{FR-1, FR-2, FR-3, FR-4, FR-5, FR-6, FR7, and FR-8} in table \ref{table:requirements:func} (Pg. \pageref{table:requirements:func}). As these requirements have been catered towards the aims and objectives, this will validate the completion of the project.
 
 
+\subsubsection{Task 6}
+\label{sec:evaluation:ui:tasks:q6}
 \section{Web Server Testing}
 \label{sec:evaluation:web_server}
 
