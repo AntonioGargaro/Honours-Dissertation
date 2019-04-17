@@ -1,6 +1,6 @@
 % !TEX root = ../thesis-example.tex
 %
-\chapter{Requirements}
+\chapter{Requirements Design}
 \label{sec:requirements}
 
 %\cleanchapterquote{Innovation distinguishes between a leader and a follower.}{Steve Jobs}{(CEO Apple Inc.)}
@@ -14,6 +14,8 @@ This section discusses requirements and evaluates them to set a clear scope for 
 
 
 \begin{table}[htb!]
+\caption{Non-Functional Requirements}
+\label{table:requirements:non_func}
 \centering
 \begin{tabular}{|l|p{0.6\textwidth}|p{0.1\textwidth}|l|}
 \hline
@@ -27,8 +29,6 @@ NFR-6 & Data stored locally should not exceed 5MB per coin pair & Should & - \\ 
 NFR-7 & Web app runs simultaneous user operations & Won't have this time & - \\\hline
 NFR-8 & Always have an active internet connection & Must & - \\\hline
 \end{tabular}
-\caption{Non-Functional Requirements}
-\label{table:requirements:non_func}
 \end{table}
 
 \subsection{Non-Functional Requirements Evaluation}
@@ -52,6 +52,8 @@ While the exact goal of this project is to develop a web app for a trading bot a
 
 
 \begin{table}[htb!]
+\caption{Functional Requirements}
+\label{table:requirements:func}
 \centering
 \begin{tabular}{|l|p{0.65\textwidth}|l|l|}
 \hline
@@ -67,8 +69,6 @@ FR-8 & Web app to display order book data & Could & - \\\hline
 FR-9 & User tracking of coin selection on server & Could & - \\ \hline
 FR-10 & Bot to generate a trade signal from multiple technical indicators & Must & - \\ \hline
 \end{tabular}
-\caption{Functional Requirements}
-\label{table:requirements:func}
 \end{table}
 
 

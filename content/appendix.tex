@@ -25,7 +25,7 @@
 \begin{code}
 \captionof{listing}{pandas Example 1}
 \label{code:rel:dev_lib:pandas:amz_data}
-\begin{minted}{Python}
+\begin{minted}[linenos]{Python}
 import pandas_datareader.data as web
 # collect data for Amazon from 2017-04-22 to 2018-04-22
 start = '2017-04-22'
@@ -45,7 +45,7 @@ open date    high      low        close      volume
 \begin{code}
 \captionof{listing}{Backtrader Differences Between Moving Averages}
 \label{code:rel:dev_lib:backtrader:sma_diff}
-\begin{minted}{Python}
+\begin{minted}[linenos]{Python}
 a = SMA(period=25) - SMA(period=50)
 \end{minted}
 \end{code}
@@ -54,7 +54,7 @@ a = SMA(period=25) - SMA(period=50)
 \begin{code}
 \captionof{listing}{Flask RESTful Minimal Setup}
 \label{code:rel:dev_lib:flask:flask_restful}
-\begin{minted}{Python}
+\begin{minted}[linenos]{Python}
 from flask import Flask
 from flask_restful import Resource, Api
 
@@ -78,7 +78,7 @@ if __name__ == '__main__':
 \begin{code}
 \captionof{listing}{Flask SocketIO Minimal Setup}
 \label{code:rel:dev_lib:flask:flask_socketio}
-\begin{minted}{Python}
+\begin{minted}[linenos]{Python}
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
     
@@ -103,13 +103,49 @@ if __name__ == '__main__':
 \begin{code}
 \captionof{listing}{Calculating When The Next API Call Is Allowed}
 \label{code:impl:exchange_data:calc_next_interval}
-\begin{minted}{Python}
+\begin{minted}[linenos]{Python}
 # msOccuredAt is the time a 429 code is received
 # Calculation is done in millieseconds, e.g. 60000ms = 1 minute
 nextCallAt = floor( ( msOccuredAt / 60000) + 1) * 60000
 \end{minted}
 \end{code}
 
+
+\begin{code}
+\captionof{listing}{Existence class to keep track of active bots}
+\label{code:impl:bot:existence_model}
+\begin{minted}[linenos]{Python}
+class BotExistenceModel:
+    """ Tracks bots which currently spawned. """
+    def __init__(self):
+        self.botsInMemory = {}
+    """ Return number of active bots """
+    def numOfBots(self):
+        return len(self.botsInMemory)
+    """ Return class reference by hash or None """
+    def getBotByHash(self, hash):
+        return self.botsInMemory.get(hash)
+    """ Return true if hash exists """
+    def checkHash(self, hash):
+        return bool(self.getBotByHash(hash))
+    """ Add class reference by hash """
+    def add(self, botManagerClass):
+        hash = gen_hash()   # Get random hash
+        # Add botManagerClass into dict
+        self.botsInMemory[hash] = botManagerClass
+        return hash
+    """ Delete class reference by hash """
+    def delete(self, hash):
+        # Retrieve bot manager
+        hashedBotManager = self.botsInMemory.get(hash)
+        
+        if hashedBotManager is not None:
+            hashedBotManager.stop() # Stop bot manager
+            
+        del self.botsInMemory[hash] # Delete from dict
+        return not self.checkHash(hash)
+\end{minted}
+\end{code}
 
 \newpage
 \section{Use cases}
@@ -677,6 +713,36 @@ nextCallAt = floor( ( msOccuredAt / 60000) + 1) * 60000
 \sffamily
 
 
+\newpage
+
+
+\includepdf[page=1,frame,scale=0.65,pagecommand={
+\section{Usability Evaluation Forms}
+\label{sec:appendix:usability_forms}
+\subsection{Consent Form}
+\label{sec:appendix:usability_forms:consent}
+}]{content/graphics/UE_1.pdf}
+
+\includepdf[page=2-,frame,scale=0.75,pagecommand={}]{content/graphics/UE_1.pdf}
+
+
+\includepdf[page=1,frame,scale=0.75,pagecommand={
+\subsection{Knowledge Questions}
+\label{sec:appendix:usability_forms:u2}
+}]{content/graphics/UE_2.pdf}
+
+
+\includepdf[page=1,frame,scale=0.75,pagecommand={
+\subsection{Task Questions}
+\label{sec:appendix:usability_forms:u3}
+}]{content/graphics/UE_3.pdf}
+
+\includepdf[page=2-,frame,scale=0.75,pagecommand={}]{content/graphics/UE_3.pdf}
+
+
+
+% GANTT CHARTS COMMENTED OUT
+\iffalse
 
 \section{Gantt Charts}
 \label{sec:appendix:gantt}
@@ -953,3 +1019,4 @@ nextCallAt = floor( ( msOccuredAt / 60000) + 1) * 60000
       
       
     \end{ganttchart}
+\fi
