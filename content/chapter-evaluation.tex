@@ -3,7 +3,7 @@
 \chapter{Testing \& Evaluation}
 \label{sec:evaluation}
 
-The evaluation of this project was split into three categories. A system usability evaluation of the web app was conducted to gather data on it's intuitiveness and ease of use, a testing suite was created to evaluate robustness of the web server and it's responses when operating the bot and platform, and an empirical study of different strategies and their configurations to evaluate their performances. These categories cover all parts of development of this project and evaluate them appropriately.
+The evaluation of \textbf{SKNT} was split into three categories. A system usability evaluation of the web app was conducted to gather data on it's intuitiveness and ease of use, a testing suite was created to evaluate robustness of the web server and it's responses when operating the bot and platform, and an empirical study of different strategies and their configurations to evaluate their performances. These categories cover all parts of development of \textbf{SKNT} and evaluate them appropriately.
 
 
 \section{Web App Usability}
@@ -47,7 +47,7 @@ The evaluation of this project was split into three categories. A system usabili
 
 \subsection{The Tasks}
 \label{sec:evaluation:ui:tasks}
-\noindent The evaluation consisted of candidates completing a set tasks (App. \ref{sec:appendix:usability_forms:u3}, pg. \pageref{sec:appendix:usability_forms:u3}). which were designed to test how the web app presents data, how easy this data is to understand, and how informed the user felt when using functionality. The evaluation required the candidate to complete tasks using the web app to provide feedback, rate aspects of it and be observed using it. This provided both \textbf{quantitative} and \textbf{qualitative} data to analyse the tasks within the same evaluation.
+\noindent The evaluation consisted of candidates completing set tasks (App. \ref{sec:appendix:usability_forms:u3}, pg. \pageref{sec:appendix:usability_forms:u3}) that were designed to test how the web app presents data, how easy this data is to understand, and how informed the user felt when using functionality. The evaluation required the candidate to complete tasks using the web app to provide feedback, rate aspects of it and be observed using it. This provided both \textbf{quantitative} and \textbf{qualitative} data to analyse the tasks within the same evaluation.
 
 Prior to starting, high level overviews of cryptocurrencies and trading markets were provided to the candidate. This gave context to candidates who have never used any trading platform or tool prior to the evaluation. Candidates were allowed to ask the investigator about general questions of the web app or market as a whole, although this was noted alongside the observations of the candidate.
 
@@ -81,13 +81,13 @@ Prior to starting, high level overviews of cryptocurrencies and trading markets 
 \label{sec:evaluation:ui:tasks:q1}
 \noindent My initial hypothesis for task 1 was to be relatively straightforward as all this information is contained at the top of the web app. While this was partially true, this result mainly came from users who state they had at least some experience using a cryptocurrency exchange. Notable feedback for this task:
 \begin{itemize}
-\item "All the data was available on the top of the screen where your eyes naturally look for the information if you have used any form of stock trading."
-\item  "Naturally, I looked at the top of the screen as that is where a price ticker tends to be on a cryptocurrency exchange."
+\item ``All the data was available on the top of the screen where your eyes naturally look for the information if you have used any form of stock trading.''
+\item  ``Naturally, I looked at the top of the screen as that is where a price ticker tends to be on a cryptocurrency exchange''
 \end{itemize}
 
-\noindent Some candidates who have heard of cryptocurrency exchanges but never used one struggled with this. One candidate tried to find this data within the candlestick chart and coin pair listings, which does display relevant data, but not clearly or easily. Candidates with similar experience  stated:
+\noindent Some candidates who have never used cryptocurrency exchanges struggled with this. One candidate tried to find this data within the candlestick chart and coin pair listings, which does display relevant data, but not clearly or easily. Candidates with similar limited experience stated:
 \begin{itemize}
-\item "I am new to trading platforms, the GUI [\textit{appears to be}] busy and can be overwhelming. After a few minutes, you begin to get a feel for it and know what each section represents." 
+\item ``I am new to trading platforms, the GUI [\textit{appears to be}] busy and can be overwhelming. After a few minutes, you begin to get a feel for it and know what each section represents'' 
 \end{itemize}
 
 
@@ -124,7 +124,7 @@ The indicators in reference are generated signals on the candlestick chart that 
   \subfloat[How informed the candidate felt when starting the bot.]{\includegraphics[width=0.495\textwidth]{content/graphics/start_informed.PNG}\label{fig:eval:web_app:start_informed}}
   \hfill
   \subfloat[How informed the candidate felt when stopping the bot.]{\includegraphics[width=0.495\textwidth]{content/graphics/stop_informed.PNG}\label{fig:eval:web_app:stop_informed}}
-  \caption{Scaled from 1 (Very Unclear) to 5 (Very Clear) on how users felt when performing tasks 2 and 4}
+  \caption{Scaled from 1 (Very Unclear) to 5 (Very Clear) on how users felt when performing tasks 2 (a) and 4 (b)}
   \label{fig:eval:web_app:start_stop_informed}
 \end{figure}
 
@@ -139,7 +139,7 @@ The indicators in reference are generated signals on the candlestick chart that 
     \item "I do not feel I had any indication of whether the coin may long or short - there is arrows now displaying on the graph that I could take a guess on but no other info."
     \item "Green arrows are present before a rise in the graph. Red arrows are present before a drop."
 \end{itemize}
-Not understanding the purpose of the arrow indicators came from candidates who are inexperienced with candlestick charts prior to the evaluation. Thus, the fact that all candidates were still able to recognise the arrows as indicators suggest they can symbolise change in market trends. Criticism of the indicators pertain to the lack of any extra information attached to them. Tooltip functionality occurs when hovering over the arrows but all candidates never attempted to interact with them. Therefore, a suggestion for future work would be to attach an icon to the chart to provide details about the functionality available. The lack of clear description about the functionality the arrow indicators provide is reflected in ratings in figure \ref{fig:eval:web_app:task3_clarity}. 
+Not understanding the purpose of the arrow indicators came from candidates who are inexperienced with candlestick charts prior to the evaluation. Thus, the fact that all candidates were still able to recognise the arrows as indicators suggest they can symbolise change in market trends. Criticism of the indicators pertain to the lack of any extra information attached to them. Tooltip functionality occurs when hovering over the arrows but all candidates never attempted to interact with them. Therefore, a suggestion for future work would be to attach an icon to the chart to provide details about the functionality available. The lack of clear description about the functionality the arrow indicators provide appears to reflect in ratings in figure \ref{fig:eval:web_app:task3_clarity}. 
 
 
 \begin{figure}[ht]
@@ -157,7 +157,7 @@ Task 5 required the candidate to select a strategy and set it's configurations. 
 \item "Very easy to complete - every option was easy to find. I have no idea what I was changing."
 \item "The task was easy enough to do but I didn't not know what anything meant."
 \end{itemize}
-The strategy options are labelled and easy to identify as stated by most of the feedback. Providing adequate explanations of what the strategies and their configurations do is vital to reducing the complexity of the bot. Tooltips were suggested in the feedback, which is a feature currently implemented in the arrow indicators but failed to be recognised as an available functionality. Future work to resolve this issue would be to add icons that symbolise hoverable tooltips that provide information. Candidates generally found that selecting and configuring the strategy was very obvious as seen in figure \ref{fig:eval:web_app:task5_obvious}.
+The strategy options are labelled and easy to identify as stated by most of the feedback. Providing adequate explanations of what the strategies and their configurations do is vital to reducing the complexity of \textbf{SKNT}. Tooltips were suggested in the feedback, which is a feature currently implemented in the arrow indicators but failed to be recognised as an available functionality. Future work to resolve this issue would be to add icons that symbolise hoverable tooltips that provide information. Candidates generally found that selecting and configuring the strategy was very obvious as seen in figure \ref{fig:eval:web_app:task5_obvious}.
 
 \begin{figure}[ht]
   \centering
@@ -189,7 +189,7 @@ Most candidates scrolled through the \textbf{USDT} list of pairs before realisin
 \label{sec:evaluation:ui:conclusion}
 \noindent Concluding from the usability study, the web app in it's current state fails to address a steep learning curve into using market tools such as candlestick charts and their indicators. Candidates with little experience of crypto or their markets felt the UI was overwhelming and were unable to find specific information quickly. Other parts of the UI felt unclear to what they actually meant such as the configuration options for strategies. Ultimately, an inadequate amount of information is embedded into the web app and fails to provide explanation on functionality.   
 
-Other basic operations were cited as straightforward and simple to understand. This demonstrates the premise that the web app cater to users of all experiences. User's felt they were mostly informed due to reactive UI elements like the pop-up notification and the button toggle. This should be further intertwined into the web app so the user always has feedback to confirm their interactions are successful. An operational messages panel is present on the UI but no candidate noted on it, favouring to look at the snackbar notification solely. As this panel keeps a log of current and past events to allow a user to be informed of all actions, it presents the issue that when important notifications are displayed, they may be overlooked by the high level overview snackbar. A few solutions to making the push message panel more prominent could be to prevent the snackbar overlapping it or to attach UI transitions and attractive colours.   
+Other basic operations were cited as straightforward and simple to understand. This demonstrates the premise that the web app cater to users of all experiences. User's felt they were mostly informed due to reactive UI elements like the pop-up notification and the button toggle. This should be further intertwined into the web app so the user always has feedback to confirm their interactions are successful. An operational messages panel is present on the UI but no candidate noted on it, favouring to look at the snackbar notification solely. As this panel keeps a log of current and past events to allow a user to be informed of all actions, it presents the issue that when important notifications are displayed they may be overlooked by the high level overview snackbar. A few solutions to making the push message panel more prominent could be to prevent the snackbar overlapping it or to attach UI transitions and attractive colours.   
 
 For future work, implementing a vast number of tooltip icons close to UI elements than can be interacted with would provide quick helpful tips so a user can understand what they are interacting with. This is present on the market trend indicators that the bot generates but are unnoticeable and thus ineffective. To reduce the initial learning curve, a one-time pop up could present a tutorial of the different panels of the UI on a users first visit. This would clarify what each panel is for and what a user can derive from it. A FaQ may also be beneficial to answer questions about the web app and market as to allow inexperienced users to learn about it.
 
@@ -209,7 +209,7 @@ For future work, implementing a vast number of tooltip icons close to UI element
 \section{Web Server Testing}
 \label{sec:evaluation:web_server}
 
-\noindent An evaluation of the web server's robustness and ability to respond to events is tested through unit tests on all of the available endpoints. Specifically, this section looks to evaluate the process performed by the part of the web server that handles the forwarding of data received from Binance to the user. This includes when the 429 status code is received or an API restriction is in affect. Testing of the web server's communication between a user and a bot is also performed by testing if input is validated, if the responses are appropriate for the outcome of the operation and if API restrictions are handled appropriately. 10 unit tests cover the exceptions stated above which the web server may encounter during operation. This is a non-exhaustive list of unit tests.
+\noindent An evaluation of the web server's robustness and ability to respond to events is tested through unit tests on all of the available endpoints. Specifically, this section looks to evaluate the process performed by the part of the web server that handles the forwarding of data received from Binance to the user. This includes when the 429 status code is received or an API restriction is in affect. Testing of the web server's communication between a user and a bot is also performed by testing if input is validated, if the responses are appropriate for the outcome of the operation and if API restrictions are handled appropriately. Ten unit tests cover the exceptions stated above which the web server may encounter during operation. This is a non-exhaustive list of unit tests.
 
 
 \subsection{Exchange Data Endpoints}
@@ -243,7 +243,7 @@ For future work, implementing a vast number of tooltip icons close to UI element
 
 \begin{table}[ht]
 \caption{API Endpoints for Binance Data
-\textbf{NOTE :} All endpoints are prefixed with \textit{\textbf{"/api/v1/"}}}
+\textbf{NOTE :} All endpoints are prefixed with \textit{\textbf{``/api/v1/''}}}
 \label{sec:evaluation:web_testing:data_apis}
 \centering
   \begin{tabularx}{\linewidth}{|c|c|L|} 
@@ -256,7 +256,7 @@ For future work, implementing a vast number of tooltip icons close to UI element
 \hline
 \end{tabularx}
 \end{table}
-\noindent When the 429 status code is returned to the user who originated the request, it confirms that the web server has handled the setting or abiding of an API restriction. Due to the design of how the web server handles requests, a 429 status code can only be returned from the web server when it has restricted itself from API requests. In production, this could lead to abuse of the API and restrict the web server from requesting data entirely. Therefore, a solution for this project could be to either implement an endpoint weighting system similar to Binance, or store local caches of data which are frequently requested to prevent additional calls to Binance's API for the same data another user has requested. 
+\noindent When the 429 status code is returned to the user who originated the request, it confirms that the web server has handled the setting or abiding of an API restriction due to the design of how the web server handles requests. In production, this could lead to abuse of the API and restrict the web server from requesting data entirely. Therefore, a solution for \textbf{SKNT} could be to either implement an endpoint weighting system similar to Binance, or implement the caching of market data which is frequently requested to prevent additional calls to Binance's API for the same data another user has requested. 
 
 % TODO maybe compare either solution, does either aid to the objectives or the current project?
 While the web server's own endpoint weighting system would prevent abuse and lower the chance of requiring self-bans, it would fail to support a large number of concurrent users who would still require the requests to receive data. Implementing this alongside the caching solution would prevent abuse to the web servers endpoint and reduce API calls to Binance as well. This would also further the projects objective of creating a robust web app that can handle varied exception cases.
@@ -267,20 +267,18 @@ While the web server's own endpoint weighting system would prevent abuse and low
 \noindent Unit tests 3 and 4 in table \ref{sec:evaluation:web_testing:exch_data:all_tests} test the sole WebSocket endpoint that requests data from Binance's API during its events. This occurs during the \textbf{connect} and \textbf{get\_klines} events of the \textbf{kline} namespace (described in table \ref{sec:evaluation:web_testing:data_ws}), therefore a unit test was created for each event. Both events return a JSON response seen at snippet \ref{code:evaluation:web_testing:kline_response} with the key \textbf{status\_code} and value \textbf{429} shown on line 3 when the self-ban restriction is active. This provides context as to why the operation was unable to complete and provides the interface that uses the endpoint with a way to handle the response appropriately.
 
 \begin{listing}
-\begin{minted}[frame=single,
-               framesep=3mm,
-               linenos=true,
+\caption{JSON example} 
+\label{code:evaluation:web_testing:kline_response}
+\begin{minted}[linenos=true,
                xleftmargin=21pt,
-               tabsize=4]{js}
+               tabsize=2]{js}
 {   
     msg: "Some error message...",
     status_code: 429
 }
 \end{minted}
-\caption{JSON example} 
-\label{code:evaluation:web_testing:kline_response}
 \end{listing}
-The exception responses from the data endpoints don't provide any other data other than the keys \textbf{status\_code} and \textbf{msg}. In future works, the web server could return a response to generate a log message, as discussed in section \ref{sec:implementation:frontend:controls_notifications} (Pg. \pageref{sec:implementation:frontend:controls_notifications}), to alert the user that the service is temporarily unavailable. This could be tied in with the implementation of the web servers own endpoint weighting system to provide updates to the user about any issues the web server is facing or what restrictions are being applied to them. Working examples of log message responses are already implemented in the bot's controller endpoints discussed in section \ref{sec:evaluation:web_server:bot_controls} below.
+The exception responses from the data endpoints don't provide any other data other than the keys \textbf{status\_code} and \textbf{msg}. In future work, the web server could return a response to generate a log message, as discussed in section \ref{sec:implementation:frontend:controls_notifications} (Pg. \pageref{sec:implementation:frontend:controls_notifications}), to alert the user that the service is temporarily unavailable. This could be tied in with the implementation of the web servers own endpoint weighting system to provide updates to the user about any issues the web server is facing or what restrictions are being applied to them. Working examples of log message responses are already implemented in the bot's controller endpoints discussed in section \ref{sec:evaluation:web_server:bot_controls} below.
 
 \begin{table}[ht]
 \caption{WebSocket Endpoints for Binance Data: 
@@ -382,14 +380,13 @@ Unit tests 1 and 3 in table \ref{sec:evaluation:web_testing:bot_controls:all_tes
     %%%
  \end{minipage}
 %
- \captionof{listing}{Expected JSON responses returned from the web server when the bot is started \\ (a) The \textbf{SNACKBAR} response data (b) The \textbf{LOG} response data}
+ \captionof{listing}{Expected JSON responses returned from the web server when the bot is started (a) The \textbf{SNACKBAR} response data (b) The \textbf{LOG} response data}
   \label{code:eval:testing:bot_ws_responses}
 \end{figure}
 
-% DONE add code snippets of expected JSON responses of logs
 \noindent The log message type (Snip. \ref{code:eval:testing:bot_ws_responses}.b) holds the import data about the outcome of this endpoint, containing the key \textbf{success} with value \textbf{True} when the bot has started, or \textbf{False} if it failed to do so. The key \textbf{botHash} is used to uniquely identify a bot and is ensured it is a length of 32 characters. The snackbar message type provides styling information for the pop up message of the frontend by having the key \textbf{variant} with the value \textbf{success}. This provides details about what kind of message the UI should display, in this case a green \textit{success} message.
 
-Unit test 1 in table \ref{sec:evaluation:web_testing:bot_controls:all_tests} is checked for the same data, however only one response is possible and does not have a specific message type. This endpoint is a more direct method to interacting with the bot and its response is not decorated for the front end UI. This endpoint is useful for interfaces that may want to interact with the web server through there own third party service, similar to how this web server interacts with Binance's server. 
+Unit test 1 in table \ref{sec:evaluation:web_testing:bot_controls:all_tests} is checked for the same data, however only one response is possible and does not have a specific message type. This endpoint is a more direct method to interacting with the bot and its response is not decorated for the front end UI. This endpoint is useful for interfaces that may want to interact with the web server through there own third party service without using WebSockets, although additional endpoints will be required to request performance updates of the bot. 
 
 \subsubsection{Unit Tests 2 \& 4}
 Unit test 2 and 4 in table \ref{sec:evaluation:web_testing:bot_controls:all_tests} attempt to the start the bot with missing arguments. The initial testing using test case 4 resulted in the case failing as there was no proper input validation implemented for the WebSocket endpoint, but the API endpoint had built-in functionality to validate its own input. Thus, to ensure consistency with the API when unexpected input was sent to the web server, the WebSocket was re-factored to handle inputs in a similar fashion to the API. This required creating a function to parse the data retrieved and perform basic checks that all the arguments were present. 
@@ -573,7 +570,7 @@ It could be argued that the thresholds at 60 and 40 produce less risk as they ge
 \subsection{MA Crossover Strategy}
 \label{sec:evaluation:strats:ma_cross}
 
-\noindent The performance of the MA Crossover strategy with configuration 1 in table \ref{sec:evaluation:strats:ma_allvariants} shows an improved net profit compared to the any of RSI or MACD strategy configurations. This strategy trades on the averages of a small MA period crossing a longer MA period to signify when a change in the trend of the market occurs. As discussed in section \ref{sec:related:tradingStrategies} (Pg. \pageref{sec:related:tradingStrategies}), a comparison of the two moving average types, simple and exponential, will determine which better aids in confirming trends in the crypto market.
+\noindent The performance of the MA Crossover strategy with configuration 1 in table \ref{sec:evaluation:strats:ma_allvariants} shows an improved net profit compared to any of the RSI or MACD strategy configurations. This strategy trades on the averages of a small MA period crossing a longer MA period to signify when a change in the market trend occurs. As discussed in section \ref{sec:related:tradingStrategies} (Pg. \pageref{sec:related:tradingStrategies}), a comparison of the two moving average types, simple and exponential, will determine which better aids in confirming trends in the crypto market.
 
 \begin{table}[ht]
 \caption{\textbf{MA Crossover} strategy with all configuration variants that were evaluated; ID 1 is the default configuration for this strategy; The \textbf{Net} column headers are in USDT.}
@@ -637,7 +634,7 @@ All together, the EMA appears to support the MA crossover strategy stronger than
   \end{tabularx}
 \end{table}
 
-\noindent The configurations 1 and 2 in table \ref{sec:evaluation:strats:ma_rsi_allvariants} failed to generate any signals with the simple or exponential variant. This result can understood by looking at table \ref{sec:evaluation:strats:rsi_allvariants} (Pg. \pageref{sec:evaluation:strats:rsi_allvariants}) where configuration 1 only generates two possible signals. Thus, the RSI and MA Crossover have little opportunity occur simultaneously. The same result occurs when the upper and lower threshold are 80 and 20 respectively, so are not listed in table \ref{sec:evaluation:strats:ma_rsi_allvariants}.
+\noindent The configurations 1 and 2 in table \ref{sec:evaluation:strats:ma_rsi_allvariants} failed to generate any signals with the simple or exponential variant. This result can understood by looking at table \ref{sec:evaluation:strats:rsi_allvariants} (Pg. \pageref{sec:evaluation:strats:rsi_allvariants}) where configuration 1 only generates two possible signals. Thus, the RSI and MA Crossover have little opportunity to occur simultaneously. The same result occurs when the upper and lower thresholds are 80 and 20 respectively, so are not listed in table \ref{sec:evaluation:strats:ma_rsi_allvariants}.
 
 The configurations 3 and 4 in table \ref{sec:evaluation:strats:ma_rsi_allvariants} manage to produce relatively good profitable signals in comparison to configuration 1 and 2 in the standard MA Crossover strategy in table \ref{sec:evaluation:strats:ma_allvariants}. Configuration 3 manages to have an almost equivalent amount of net profit as configuration 1 in table \ref{sec:evaluation:strats:ma_allvariants}, but with a significantly lower number of signals. This suggests that the inclusion of a lenient RSI threshold solidifies when a change in the market direction occurs with the profit resulting to \$40.96 per signal on average compared to \$12.05 per signal on average. Configuration 4 performs substantially better than configuration 2 in table \ref{sec:evaluation:strats:ma_allvariants} by generating 3 signals in total. The first and second signal were a large period apart, being generated on the 17th of March and the 5th of April. This strategy suggests it ignores sideways or small price movements quite well and triggers signals on the wider market range. This configuration is the best result in terms of profit than any other strategy or configuration.
 
@@ -664,7 +661,7 @@ The configurations 3 and 4 in table \ref{sec:evaluation:strats:ma_rsi_allvariant
   \end{tabularx}
 \end{table}
 
-\noindent Every configurations in table \ref{sec:evaluation:strats:ma_macd_allvariants} produce results on par or worse than just the MA Crossover strategy by itself. This suggests that the MACD strategy does not benefit the MA Crossover strategy by conjoining them with any variant of the configuration. Analysing this logically, both the MACD and MA Crossover both generate signals when one type of MA crosses the other. Thus, the lack of distinction in how signals are generated suggests that the MACD indicator may be blocking profitable signals and not adding any other value to the strategy. Furthermore, as discussed in section \ref{sec:evaluation:strats:macd}, the MACD indicator performs poorly in whipsaws and is most likely contributing to the poor signal generation of this strategy
+\noindent Every configurations in table \ref{sec:evaluation:strats:ma_macd_allvariants} produce results on par or worse than just the MA Crossover strategy by itself. This suggests that the MACD strategy does not benefit the MA Crossover strategy by conjoining them with any variant of the configuration. Analysing this logically, both the MACD and MA Crossover both generate signals when one type of MA crosses the other. Thus, the lack of distinction in how signals are generated suggests that the MACD indicator may be blocking profitable signals and not adding any other value to the strategy. Furthermore, as discussed in section \ref{sec:evaluation:strats:macd} (Pg. \pageref{sec:evaluation:strats:macd}), the MACD indicator performs poorly in whipsaws and is most likely contributing to the poor signal generation of this strategy
 
 After analysing the RSI and MACD indicator, it is clear to see that an RSI with a lenient threshold can generate more profitable signals than the MA Crossover strategy by itself. The MACD indicator fails to be more profitable in any configuration and thus is not recommended to conjoined with this strategy.
 
@@ -674,7 +671,7 @@ After analysing the RSI and MACD indicator, it is clear to see that an RSI with 
 \noindent The performance of the Bollinger and Double Bollinger Bands displayed in table \ref{sec:evaluation:strats:bb_allvars} suggest the Double Bollinger Band is less profitable. Analysing the candlestick data charts show this to be caused by the whipsaws in the sideways market movement. This is prevalent in the Double Bollinger Band as the closing price of an interval doesn't have to close over the furthest upper or lower band to generate a signal. Therefore, sideways moving markets generate many unprofitable signals. This is reflected in the number of signals generated for each `Double BB' row in contrast to their `BB' counterpart row.
 
 \begin{table}[ht]
-\caption{\textbf{Bollinger} and \textbf{Double Band} strategy using with all configuration variants that were evaluated; ID 1 is the default configuration for the \textbf{Bollinger Band} strategy; The \textbf{Net} column headers are in USDT.}
+\caption{\textbf{Bollinger} and \textbf{Double Bollinger Band} strategies using all configuration variants that were evaluated; ID 1 is the default configuration for the \textbf{Bollinger Band} strategy; The \textbf{Net} column headers are in USDT.}
 \label{sec:evaluation:strats:bb_allvars}
 \centering
   \begin{tabularx}{\linewidth}{|c|L|L|L|L|} 

@@ -9,7 +9,7 @@
 
 The boom of cryptocurrencies and the youth of their markets allows for a new possibility of volatile trading. However, capitalising on this market by trading on human emotions and impulses can lead to error prone decisions or missed opportunities. A bot is entirely more capable of handling these issues that institutional trading on the US stock market accounted for 61\% or 6.73 billion shares \cite{WEB:Cheng:2017} per day by algorithmic trading in 2009. With constant real-time analysis, bots can react fast to sudden market changes, long or short a currency and minimise loss through analysis of market data. 
 
-Developing a web app as Software-as-a-Service (SaaS) presents a widely available remote interface to interact with, pushing the computational requirements to a server rather than the user's own hardware. Furthermore, the ease of interacting with a remote server allows for multiple different methods to interact through web standards such as HTTP requests.
+Developing a web app as Software-as-a-Service (SaaS) presents a widely available remote interface to interact with, pushing the computational requirements to a server rather than the user's own hardware. Furthermore, a remote web server allows for multiple services to interact with it using web technologies such as the HTTP protocol and WebSocket
 
 
 
@@ -18,35 +18,35 @@ Developing a web app as Software-as-a-Service (SaaS) presents a widely available
 
 \section{Aims}
 \label{sec:intro:aims}
-\noindent To discuss and develop a web app as SaaS that utilises technical analysis on data sets provided by the cryptocurrency exchange Binance, via their API \cite{WEB:BINANCE_API:2018}. Trading strategies that generate long and short signals based on the market's current trends will be derived by analysing this data. This will be wrapped with web server endpoints as to interact with the bot from a web based dashboard. The signals generated and actions taken by the bot will be displayed to the user through charts, notifications and tables.
+\noindent To discuss and develop the web app \textbf{SKNT} as SaaS that utilises technical analysis on data sets provided by the cryptocurrency exchange Binance via their API \cite{WEB:BINANCE_API:2018}. Trading strategies that generate long and short signals to confirm the market's current trends will be derived by analysing this data. This will be wrapped with web server endpoints as to interact with the bot from a web based dashboard. The signals generated and operations performed by the bot will be displayed to the user through charts and notifications.
 
 
 \section{Objectives}
 \label{sec:intro:objectives}
-\noindent The bot shall be configurable to allow the user to customise the configuration of strategies, such as defining the size of periods or thresholds that indicators will use e.g. a small period shall cover 20 intervals. It should also offer options of different coin pairs\footnote{A coin pair is when one cryptocurrency is traded for another cryptocurrency e.g. \textbf{BTC / USDT}. The cryptocurrency after the `/' is the quote currency and is used as the price of the base currency that becomes before the `/'.} that the bot can generate signals for e.g. \textbf{BTC}\footnote{BTC is the cryptocurrency Bitcoin} \textbf{/ USDT}\footnote{USDT is the cryptocurrency Tether that matches 1-to-1 with the US Dollar.}, \textbf{ETH}\footnote{ETH is the cryptocurrency Ethereum} \textbf{/ USDT}, etc.
+\noindent The bot shall be configurable to allow the user to customise the configuration of strategies, such as defining the size of periods or thresholds that indicators will use e.g. a small period shall cover 20 intervals. It should also offer options of different coin pairs\footnote{A coin pair is when one cryptocurrency is traded for another cryptocurrency e.g. \textbf{BTC/USDT}. The cryptocurrency after the `/' is the quote currency and is used for the price denominator to trade the base currency with that is before the `/'.} that the bot can generate signals for e.g. \textbf{BTC}\footnote{\textbf{BTC} is the cryptocurrency Bitcoin}\textbf{/USDT}\footnote{\textbf{USDT} is the cryptocurrency Tether that matches 1-to-1 with the US Dollar.}, \textbf{ETH}\footnote{\textbf{ETH} is the cryptocurrency Ethereum}\textbf{/USDT}, etc.
 
 A bot can be created or destroyed on demand by the user, where it is initialised with the configurations that are received. It will be able to communicated with at any point of its operation via the web server and it will perform self-contained operations that does not affect the rest of the web app. This bot will employ a number of strategies using different technical indicators that it can utilise to generate signals.
 
 Information received from the web server should be displayed in a useful way to the user about the cryptocurrency market and operations of the bot. A coin pair's market data, indicators and other useful identifiers will be displayed on a candlestick chart to make clear what data the bot is using and where trend signals are generated. A message system of the bots actions will be logged and pop up notifications will be displayed to the user.
 
-Lastly, the web server will return a variation of different responses to ensure many different cases are handled. This constitutes when the server encounters errors, performs status code response handling from Binance and when input validation for strategy configurations fail. This will ensure that the front end a user interacts with is capable of updating the user of the specifics the web server has encountered.
+Lastly, the web server will return a variation of different responses to ensure many different cases are handled. This constitutes when the server encounters errors, performs status code response handling from Binance, and when input validation for strategy configurations fail. This will ensure the front end a user interacts with is capable of notifying the user with how the web server handles operations.
 
 
 
-\section{Thesis Structure}
+\section{Disseration Structure}
 \label{sec:intro:structure}
 
 \noindent\textbf{Chapter \ref{sec:related}} \\[0.2em]
-I cover related literature on algorithmic trading, the basics of trend indicators, the fundamentals of cryptocurrencies and their markets, and relevant libraries and web technologies.
+I discuss related literature on algorithmic trading, trend indicators, the fundamentals of cryptocurrencies and their markets, and relevant libraries and web technologies.
 
 \noindent\textbf{Chapter \ref{sec:requirements}} \\[0.2em]
-I identify use case scenarios and the requirements of this project, showing appropriate analysis and justification where required.
+I identify requirements and their use cases for the project and appropriately analyse and justify them through evaluation.
 
-%\noindent\textbf{Chapter \ref{sec:design}} \\[0.2em]
-%I construct an initial design of the development stack based on various technologies that will be used.
+\noindent\textbf{Chapter \ref{sec:implementation}} \\[0.2em]
+I discuss how the implementation of the project was achieved and limitations that were discovered.
 
 \noindent\textbf{Chapter \ref{sec:evaluation}} \\[0.2em]
-I discuss the usability evaluation, test suite, and empirical analysis of trading strategies for this project.
+I discuss the usability evaluation of the web app, test suites for the web server, and an empirical analysis of trading strategies implemented in the project.
 
-\noindent\textbf{Chapter \ref{sec:management}} \\[0.2em]
-I outline steps taken to manage this project by providing time lines, justifications, and risk assessments.
+\noindent\textbf{Chapter \ref{sec:conclusion}} \\[0.2em]
+I conclude the project as a whole, covering the achievements and limitations faced and possible future work to cover.

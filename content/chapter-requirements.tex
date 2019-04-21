@@ -1,48 +1,115 @@
 % !TEX root = ../thesis-example.tex
 %
-\chapter{Requirements Design}
+\chapter{Requirements}
 \label{sec:requirements}
 
 %\cleanchapterquote{Innovation distinguishes between a leader and a follower.}{Steve Jobs}{(CEO Apple Inc.)}
 
-This section discusses requirements and evaluates them to set a clear scope for the project to achieve. The aims and objectives discussed in section \ref{sec:intro:aims} and \ref{sec:intro:objectives} (Pg. \pageref{sec:intro}) are the bases of the requirements stated below. As a technical project, I will evaluate the functional and non-functional requirements.
+This section discusses requirements and evaluates them based on what has been achieved and changed during this project. The aims and objectives discussed in section \ref{sec:intro:aims} and \ref{sec:intro:objectives} (Pg. \pageref{sec:intro}) are the basis of the functional and non-functional requirements stated below. The requirements will be prioritised using MoSCoW analysis. Requirement priorities are defined in table \ref{table:requirements:moscow}.
 
-
+\begin{table}[htb!]
+\caption{MoSCoW Prioritisation}
+\label{table:requirements:moscow}
+\centering
+\begin{tabularx}{\linewidth}{|c|L|c|}
+\hline
+\textbf{Priority} & \textbf{Description} \\ \hline\hline
+Must & Critical delivery of requirement to state the project is successful. \\ \hline
+Should & Important to achieve for the project but are not necessary for the deadline. \\ \hline
+Could &  Desirable to achieve for the project but are not  necessary for the deadline. \\ \hline
+Won't Have & Recognised requirement that won't be achieved for the deadline and may be removed entirely. \\ \hline
+\end{tabularx}
+\end{table}
 
 \section{Non-Functional Requirements}
 \label{sec:requirements:non_func}
-
 
 \begin{table}[htb!]
 \caption{Non-Functional Requirements}
 \label{table:requirements:non_func}
 \centering
-\begin{tabular}{|l|p{0.6\textwidth}|p{0.1\textwidth}|l|}
+\begin{tabularx}{\linewidth}{|c|L|c|c|}
 \hline
 \textbf{ID} & \textbf{Description} & \textbf{Priority} & \textbf{Status} \\ \hline\hline
-NFR-1 & Sum of API fetch weights per second must be equal or less than the limit placed by Binance & Must & - \\ \hline
-NFR-2 & Fetch chosen coin's real-time market data at least once per second & Must & - \\ \hline
-NFR-3 & Perform process in figure \ref{fig:related:tradeprocess} (Pg. \pageref{fig:related:tradeprocess}) in less than 1 second of retrieving data & Must & - \\ \hline
-NFR-4 & Trade signals lead to successful trade execution within 15 seconds & Must & - \\\hline
-NFR-5 & Web app front end must work on Google Chrome v.70 & Must & - \\\hline
-NFR-6 & Data stored locally should not exceed 5MB per coin pair & Should & - \\ \hline
-NFR-7 & Web app runs simultaneous user operations & Won't have this time & - \\\hline
-NFR-8 & Always have an active internet connection & Must & - \\\hline
-\end{tabular}
+%
+NFR-1 
+& Sum of API request weights must be less than the limit placed by Binance (1200 per minute) 
+& Must 
+& Achieved \\ 
+\hline
+%
+NFR-2 
+& Receive chosen coin pair's real-time market data at least once every 3 seconds 
+& Must 
+& Achieved\\ \hline
+%
+NFR-3 
+& Perform process from figure \ref{fig:related:tradeprocess}.a to \ref{fig:related:tradeprocess}.c (Pg. \pageref{fig:related:tradeprocess}) in less than 1 second of retrieving data 
+& Must 
+& Achieved \\ \hline
+%
+NFR-4 
+& The web server can handle normal and exceptional circumstances of its endpoints 
+& Must 
+& Achieved \\\hline
+%
+NFR-5 
+& Unit tests for the web server's endpoint must be provided to ensure maintainability of the code base for future work 
+& Should 
+& Achieved \\\hline
+%
+NFR-6 
+& Data stored locally should not exceed 50MB per coin pair 
+& Could 
+& Not Achieved \\ \hline
+%
+NFR-7 
+& Web app runs simultaneous user operations 
+& Won't Have
+& -
+\\\hline
+%
+NFR-8 
+& Must have an active internet connection to provide the service 
+& Must 
+& Achieved \\\hline
+\end{tabularx}
 \end{table}
 
 \subsection{Non-Functional Requirements Evaluation}
-\noindent The Binance API \cite{WEB:BINANCE_API:2018} has set weightings for fetch requests that accumulate between time intervals. This is to prevent constant spamming of their server, so failing to adhere to the set weightings within a time interval will ban the IP of a client from three minutes to three days. Use case 1 in section \ref{sec:requirements:non_func:usecases} (Pg. \pageref{sec:requirements:non_func:usecases:1}) describes how this may occur in extension 3.b. Blocked from the exchange incapacitates the bot by disrupting the market data retrieval process which hinders the ability to generate trade signals. To prevent this, non-functional requirement NFR-1 in table \ref{table:requirements:non_func} must be implemented to ensure the continued operation of the bot as shown in extension 3.a.
+\label{sec:requirements:non_func:eval}
+
+\noindent The Binance API \cite{WEB:BINANCE_API:2018} has set weightings for fetch requests that accumulate between time intervals. This prevents constant spamming of Binance's server, therefore failing to adhere to the weightings within a time interval will ban the IP of the web server from three minutes up-to three days. Use case 1 in section \ref{sec:requirements:non_func:usecases} (Pg. \pageref{sec:requirements:non_func:usecases:1}) describes how this may occur in extension 3.b. \textbf{NFR-1} was achieved through the implementation of the self-ban functionality discussed in section \ref{sec:implementation:info_comm:binance_exchange_data} (Pg. \pageref{sec:implementation:info_comm:binance_exchange_data}) to ensure the continued operation of the bot as shown by extension 3.a of use case 1.
     
-The alternatives to constant data fetching is shown in the technology variation list, specifically item 2.a. This allows for constant market data to be pushed to the bot instead, however this has its downsides. It is set at the interval of 1 second \cite{WEB:BINANCE_API:2018} which, in particular scenarios, may not provided enough new information. Finding the right balance between these two technologies will require research in the development phase.
+Binance's WebSocket endpoint pushes new market data rather than requiring an API fetch. New data is received every second \cite{WEB:BINANCE_API:2018} and was deemed satisfactory during the development phase of \textbf{SKNT}. Thus, this technology is now used as the main process to update market data after the initial request and is discussed further in section \ref{sec:implementation:info_comm:binance_exchange_data} (Pg. \pageref{sec:implementation:info_comm:binance_exchange_data}). Based on the WebSocket push interval,\textbf{ NFR-2} has been achieved while providing enough room for error if the interval lags and fails to push an update. Exceeding 3 seconds is a large enough downtime that the connection to the server may be lost and thus should reconnect. As discussed in the literature review (Sec. \ref{sec:related:cryptoAndTheirMarkets}, pg. \pageref{sec:related:cryptoAndTheirMarkets}), these API weightings are extremely restrictive in comparison to the stock market. Hence, \textbf{NFR-2} would likely differ in AT development for the equity market. 
 
-While considering NFR-1, ensuring the bot also has the most up-to-date market data for the coin being traded is imperative to providing correct analysis. This will be considerably important during times of high volatility to find the best entry price. Thus, NFR-2 states a minimum of one call every second, which is consistent to the web socket push interval discussed above. However, if this interval lags and fails to push, a fetch call must execute to receive this data. As discussed in the literature review (Sec. \ref{sec:related:cryptoAndTheirMarkets}, pg. \pageref{sec:related:cryptoAndTheirMarkets}), these API weightings are extremely restrictive in comparison to the stock market. Hence, NFR-2 would likely differ in a HFT bot development requirement for the equity market. 
+The bot must be able to identify trading signals in a small enough time frame before more market data is received. As seen by use case 2 in section \ref{sec:requirements:non_func:usecases} (Pg. \pageref{sec:requirements:non_func:usecases:2}), a backlog of data that needs to be analysed would severely delay the bot's operations. Extension scenario 2.a results in the bot cancelling its operations and shutting down as it cannot evaluate fast enough. Ten intervals of the trade process (Sec. \ref{sec:related:algoTrading:tradeprocess}, pg. \pageref{sec:related:algoTrading:tradeprocess}) was recorded and displayed in table \ref{sec:requirements:non_func:time_process} which illustrates the average time to complete 10 cycles is 238ms. This was continually tested throughout development where a cycle never exceeded 1000ms. Thus, \textbf{NFR-3} has been achieved based on the average time to complete the trade process.
 
-The trading bot must be able to identify trading signals in a small enough time frame, before more market data is retrieved from the API. As seen by use case 2 in section \ref{sec:requirements:non_func:usecases} (Pg. \pageref{sec:requirements:non_func:usecases:2}), a backlog of data that needs to be analysed would severely delay the bot's operations. Extension scenario 2.a results in the bot cancelling its operations and shutting down as it cannot evaluate fast enough. This would be detrimental to success of this project so NFR-3 is defined as a must.  This is the main theme behind the success of HFT (Sec. \ref{sec:related:algoTrading:HFT}, pg. \pageref{sec:related:algoTrading:HFT}) in equity markets. This will also contribute towards the fulfilment of generating positive returns in this projects aims by allowing the bot to stay competitive in the market.
+\begin{table}[htb!]
+\caption{Recorded time of 10 intervals (\textbf{T1-T10}) during trade process in milliseconds}
+\label{sec:requirements:non_func:time_process}
+\centering
+\begin{tabularx}{\linewidth}{|L|L|L|L|L|L|L|L|L|L|L|}
+\hline
+\textbf{T1} & \textbf{T2} & \textbf{T3} & \textbf{T4} & \textbf{T5} & \textbf{T6} & \textbf{T7} & \textbf{T8} & \textbf{T9} & \textbf{T10} & \textbf{Mean} \\ \hline\hline
+%
+189
+& 207 
+& 185 
+& 195
+& 216
+& 266
+& 190
+& 281
+& 460
+& 194
+& 238 \\ \hline
+\end{tabularx}
+\end{table}
 
-Ensuring the bot can execute upon the trade signal in a timely manner allows entry into the market close to the signal's level, and links NFR-4 to one of the project objectives. This will allow the user to monitor the bots operations, so they themselves can make their own judgement on its decisions. NFR-4 is the backbone for FR-1, FR-2, and FR-3 in table \ref{table:requirements:func} and so is a must for this project. Both NFR-5 and NFR-6 ensure quality and efficiency in the front and back ends respectively. Specifically, NFR-6 can see large amounts of data when multiple intervals are used and so data management clean ups may be necessary.
+Ensuring the web server can handle a variety of different inputs and processes is crucial to producing a robust web app. Therefore, \textbf{NFR-4} was achieved to provide informative responses to all systems that interact with it. \textbf{NFR-5} is an accompanied requirement that provides added benefit to future work on this project and provides a methodology to evaluating \textbf{SKNT}. A test suite ensures all interaction with the web server is handled robustly and ensures specific values are included in the responses. Both requirements are achieved based on the testing performed in section \ref{sec:evaluation:web_server} (Pg. \pageref{sec:evaluation:web_server}).
 
-While the exact goal of this project is to develop a web app for a trading bot as SaaS with multiple users, it is outwith the scope of this dissertation. Hence, as reference for future iterations, NFR-7 has been noted. NFR-8 is required to ensure remote access through the internet. This further prepares this project for future development.
+\textbf{NFR-6} would of provided a resolution to prevent excessive API fetches in future iterations by caching data on the server. As the culminating goal of \textbf{SKNT} is to develop a trading bot as SaaS with multiple users, this would reduce the likelihood of exceeding the weight limit. Unfortunately, due to time constraints and focusing on other systems during development this functionality was not implemented but will be included in a discussion for future work at the end of this chapter. Furthermore, as reference for future iterations\textbf{ NFR-7} was noted as a requirements to ensure \textbf{SKNT} is ready for production. \textbf{NFR-8} is required to ensure the web server can be remotely accessed through the internet at all times. This further prepares \textbf{SKNT} for future development.
 
 
 
@@ -55,40 +122,91 @@ While the exact goal of this project is to develop a web app for a trading bot a
 \caption{Functional Requirements}
 \label{table:requirements:func}
 \centering
-\begin{tabular}{|l|p{0.65\textwidth}|l|l|}
+\begin{tabularx}{\linewidth}{|c|L|c|c|}
 \hline
 \textbf{ID} & \textbf{Description} & \textbf{Priority} & \textbf{Status} \\ \hline\hline
-FR-1 & The user can stop the bot and cancel trades at any time & Must & - \\ \hline
-FR-2 & A detailed output about the bots current operations to be displayed to the user & Must & - \\ \hline
-FR-3 & Web app must display coin's market data on a candlestick chart & Must & - \\\hline
-FR-4 & Candlestick chart displaying buy and sell signals that are generated & Must & - \\\hline
-FR-5 & Option to display back testing results to user & Must & - \\ \hline
-FR-6 & User configuration of algorithm options & Should & - \\ \hline
-FR-7 & Web app should display technical indicators bot is using on candlestick chart & Could & - \\\hline
-FR-8 & Web app to display order book data & Could & - \\\hline
-FR-9 & User tracking of coin selection on server & Could & - \\ \hline
-FR-10 & Bot to generate a trade signal from multiple technical indicators & Must & - \\ \hline
-\end{tabular}
+%
+FR-1 
+& The user can start and stop the bot at any time 
+& Must
+& Achieved
+\\ \hline
+%
+FR-2 
+& A detailed output about the bots current operations to be displayed to the user 
+& Must 
+& Achieved
+\\ \hline
+%
+FR-3 
+& Web app must display coin's market data on a candlestick chart 
+& Must 
+& Achieved
+\\\hline
+%
+FR-4 
+& Candlestick chart displaying long and short signals that are generated 
+& Must 
+& Achieved
+\\\hline
+%
+FR-5 
+& User may select any coin pair offered by Binance 
+& Should 
+& Achieved
+\\ \hline
+%
+FR-6 
+& User can select and configure strategies 
+& Should 
+& Achieved
+\\ \hline
+%
+FR-7 & 
+Web app should display technical indicators bot is using on candlestick chart 
+& Could 
+& Partially
+\\\hline
+%
+FR-8 
+& Web app to display order book data 
+& Could 
+& Achieved
+\\ \hline
+%
+FR-9 
+& User tracking of coin selection on server 
+& Could 
+& Achieved
+\\ \hline
+%
+FR-10 
+& Bot to generate a trade signal from multiple technical indicators 
+& Must 
+& Achieved
+\\ \hline
+\end{tabularx}
 \end{table}
 
 
 \subsection{Functional Requirements Evaluation}
 \noindent 
 
-\noindent To ensure a satisfactory user experience, prioritising control of the bot to the user is a must. Some users may want to follow the bots process closely and prevent trades, thus FR-1 in table \ref{table:requirements:func} is a must for this project. As discussed in use case 2 in section \ref{sec:requirements:func:usecases} (Pg. \pageref{sec:requirements:func:usecases:2}), this process essentially cancels all pending trades on the Binance exchange and seizes technical analysis operations for the user. As seen by the extension use cases 4.a and 4.b for use case 2, multiple pending order cancellations will be attempted if the proper acknowledgement isn't received. Otherwise, the user will be warned to cancel the trades themselves.
+\noindent To ensure a satisfactory user experience, prioritising control of operations and modifying configurations of bots on demand was crucial.  Use cases 1 and 2 (Sec. \ref{sec:requirements:func:usecases}, pg. \pageref{sec:requirements:func:usecases:1}) demonstrate the process \textbf{SKNT} would execute operations to control the bot through a unique hash ID. \textbf{FR-1} in table \ref{table:requirements:func} is achieved through the implementation discussed in section \ref{sec:implementation:info_comm:bot_comm_management} (Pg. \pageref{sec:implementation:info_comm:bot_comm_management}) and section \ref{sec:implementation:frontend:controls_notifications} (Pg. \pageref{sec:implementation:frontend:controls_notifications}), and the evaluation of tasks 2 and 4 in section \ref{sec:evaluation:ui:tasks:q2_q4} (Pg. \pageref{sec:evaluation:ui:tasks:q2_q4}). 
 
-FR-2, FR-3, and FR-4 continue to ensure a satisfactory user experience. These requirements are set to keep the user informed of current market conditions and bot operations. Use case 3 in section \ref{sec:requirements:func:usecases} (Pg. \pageref{sec:requirements:func:usecases:3}) describes how this operation may occur for market data of a specific coin already stored locally. This prevents additional latency contacting the Binance API and provides a more responsive experience. In the case that there is no data, or if its outdated, extension use case 3.a explains how the server will make appropriate data fetches from the Binance API and update the local data of the coin on the server.
+\textbf{FR-2}, \textbf{FR-3}, and \textbf{FR-4} ensure a satisfactory user experience by keeping the user informed of current market conditions and bot operations through UI elements. \textbf{FR-2} is achieved through the implementation of two notification types discussed in section \ref{sec:implementation:frontend:controls_notifications} (Pg. \pageref{sec:implementation:frontend:controls_notifications}). \textbf{FR-3} is achieved through the implementation of the candlestick chart discussed in section \ref{sec:implementation:frontend:data_vis}. \textbf{FR-4} is achieved through the implementation of the bot generating signals and pushing them to the UI which is discussed in section \ref{sec:implementation:bot} (Pg. \pageref{sec:implementation:bot}). These functional requirements are evaluated through multiple tasks in section \ref{sec:evaluation:ui} (Pg. \pageref{sec:evaluation:ui}).
 
-FR-5 gives the user a performance evaluation of the bot, indicating if it can or cannot turn a profit. This can be tied together with FR-6 to provide customisability options, which may change the back testing results. Looking at use case 4 in section \ref{sec:requirements:func:usecases} (Pg. \pageref{sec:requirements:func:usecases:4}) steps through how this may be carried out by the server. Extension use case 6 shows that the user may clear the results to revert back to the default display. 
+%Use case 3 (Sec. \ref{sec:requirements:func:usecases}, pg. \pageref{sec:requirements:func:usecases:3}) describes how this operation may occur for market data of a specific coin already stored locally. This prevents additional latency contacting the Binance API and provides a more responsive experience. In the case that there is no data, or if its outdated, extension use case 3.a explains how the server will make appropriate data fetches from the Binance API and update the local data of the coin on the server.
 
-FR-7 and FR-8 would aid in keeping the user informed of the bots operations, providing evidence of trends in the market and the current status of liquidity. FR-9 tracks a users data request as they navigate through the front end UI. To ensure resources are not being wasted, web sockets are closed when no one is requesting a specific coins data. This system is considered for future iterations of this project out with the current scope of this project.  
+% TODO add implementation of coin pairs
+\textbf{FR-5} and \textbf{FR-6} provide customisability options that allows the user to control how signals are generated from the market. Both requirements are achieved by the implementation discussed in section \ref{sec:implementation:frontend:controls_notifications}. The functionality of \textbf{FR-6} provide the ability to use a variety of different strategies and led to an extensive evaluation covered in section \ref{sec:evaluation:strats}. Use case 4 (Sec. \ref{sec:requirements:func:usecases:4}, pg. \pageref{sec:requirements:func:usecases:4}) displays the process a user would take to configure the bot. Use case 4 ends with the start of use case 1 (Pg. \pageref{sec:requirements:func:usecases:4}) as the goal is to start a bot with the custom configuration. 
 
-FR-10 is the back bone to this project. Ensuring the bot can properly generate a trade signal that is likely to return a profit based off of the discussion in section \ref{sec:related:tradingStrategies}. This is the main aim of this project.
+% TODO user tracking
+\textbf{FR-7} and \textbf{FR-8} provide the user with evidence of trends in the market and the current status of liquidity and are both achieved by the discussion in section \ref{sec:implementation:frontend:data_vis} (Pg. \pageref{sec:implementation:frontend:data_vis}). \textbf{FR-7} is partially achieved due to implementing placeholder technical indicators on the candlestick chart, however don't match with the indicators a bot is currently using. \textbf{FR-9} is achieved by tracking a users data request as they navigate through the front end UI. This ensures that resources are not being wasted by keeping WebSockets of Binance's market data open when a user is not requesting the coin pair's data. This system manages resources efficiently. \textbf{FR-10} is achieved and is the back bone to \textbf{SKNT} by ensuring the bot can generate a trade signal using indicators that is likely to return a profit, based off of the discussion in section \ref{sec:related:tradingStrategies} (Pg. \pageref{sec:related:tradingStrategies}). This requirements implementation is discussed in section \ref{sec:implementation:bot} (Pg. \pageref{sec:implementation:bot}) and extensively evaluated in section \ref{sec:evaluation:strats} (Pg. \pageref{sec:evaluation:strats}).
 
 
 \section{Conclusion}
 \label{sec:requirements:conclusion}
-\noindent The requirements and their evaluation align with the aims of this project by providing analytics to the user while performing robust operations. The non-functional requirements ensure these operations are efficient, keeping the bot competitive while attempting to produce positive returns on investments, as per the aims of this project. The non-functional requirements tackle the objectives defined by the project, ensuring the user is always informed of the current operations, and displaying this data in a meaningful way on candlestick charts. 
+\noindent The requirements and their evaluations align with the aims of this project by providing analytics to the user while performing robust operations. The non-functional requirements ensure operations are efficient while creating a web app capable of performing technical analysis on exchange data. The non-functional requirements tackle the objectives defined by the project, ensuring the user is always informed of the current operations, and displaying this data in a meaningful way on candlestick charts. 
 
-Furthermore, the user can specify options for back-testing and real-time trading. This allows customisability options to create a unique trade style. This allows more control to the user, providing a greater user experience overall.
-
+While \textbf{SKNT} doesn't completely rely on requirements \textbf{NFR-6} and \textbf{NFR-7} for this project, these will provide future areas of focus to extend the functionality of it. This will allow multiple users to simultaneously use the service while addressing the limitations of Binance's endpoint restrictions.

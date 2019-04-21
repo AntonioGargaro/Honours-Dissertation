@@ -18,9 +18,85 @@
 
 
 
-
 \section{Code Snippets}
 \label{sec:appendix:code_snippets}
+
+
+\begin{code}
+\captionof{listing}{Binance Data Format for API}
+\label{code:impl:info_comm:bin_exch:api_format}
+\begin{minted}[linenos]{js}
+[
+  [
+    1499040000000,      // Open time
+    "0.01634790",       // Open
+    "0.80000000",       // High
+    "0.01575800",       // Low
+    "0.01577100",       // Close
+    "148976.11427815",  // Volume
+    1499644799999,      // Close time
+    "2434.19055334",    // Quote asset volume
+    308,                // Number of trades
+    "1756.87402397",    // Taker buy base asset volume
+    "28.46694368",      // Taker buy quote asset volume
+    "17928899.62484339" // Ignore.
+  ]
+]
+\end{minted}
+\end{code}
+
+
+\begin{code}
+\captionof{listing}{Binance Data Format for WebSocket}
+\label{code:impl:info_comm:bin_exch:ws_format}
+\begin{minted}[linenos]{js}
+{
+  "e": "kline",     // Event type
+  "E": 123456789,   // Event time
+  "s": "BNBBTC",    // Symbol
+  "k": {
+    "t": 123400000, // Kline start time
+    "T": 123460000, // Kline close time
+    "s": "BNBBTC",  // Symbol
+    "i": "1m",      // Interval
+    "f": 100,       // First trade ID
+    "L": 200,       // Last trade ID
+    "o": "0.0010",  // Open price
+    "c": "0.0020",  // Close price
+    "h": "0.0025",  // High price
+    "l": "0.0015",  // Low price
+    "v": "1000",    // Base asset volume
+    "n": 100,       // Number of trades
+    "x": false,     // Is this kline closed?
+    "q": "1.0000",  // Quote asset volume
+    "V": "500",     // Taker buy base asset volume
+    "Q": "0.500",   // Taker buy quote asset volume
+    "B": "123456"   // Ignore
+  }
+}
+\end{minted}
+\end{code}
+
+
+\begin{code}
+\captionof{listing}{MA Crossover and RSI strategy for signal generation}
+\label{code:impl:bot_process:sma_rsi}
+\begin{minted}[linenos]{Python}
+def next(self):
+        if self.order:
+            return
+        
+        if not self.position:
+            if (self.ma[0] > self.ma_long[0]) and (self.rsi[0] < self.lowThresh):
+                self.order = self.buy()
+                self.signals.append(self.parse_signal(self.order))
+        else:
+            if (self.ma[0] < self.ma_long[0]) and (self.rsi[0] > self.highThresh):
+                self.order = self.sell()
+                self.addSignal(self.order)
+\end{minted}
+\end{code}
+
 
 \begin{code}
 \captionof{listing}{pandas Example 1}
@@ -206,7 +282,7 @@ class BotExistenceModel:
 		\begin{enumerate}
     	\item[1.] Attempt to fetch data as usual
 		\item[2.] Warning code \textbf{418} returned (IP Banned)
-		\item[3.] Bot logs IP ban and warns user
+		\item[3.] Server unable to retrieve more data
 		\item[4.] Alternative use case ends
 		\end{enumerate}
 }
@@ -237,11 +313,11 @@ class BotExistenceModel:
 
 \begin{usecase}
 
-\addtitle{Use Case 2}{Perform Trade Process} 
+\addtitle{Use Case 2}{Perform Signal Generation} 
 \label{sec:requirements:non_func:usecases:2}
 
 %Scope: the system under design
-\addfield{Scope:}{Trade Process}
+\addfield{Scope:}{Signal Generation}
 
 %Level: "user-goal" or "subfunction"
 \addfield{Level:}{subfunction}
@@ -258,28 +334,28 @@ class BotExistenceModel:
 %Preconditions: What must be true on start and worth telling the reader?
 \additemizedfield{Preconditions:}{
     \item Historical data has been retrieved and evaluated
-    \item Real-time data is currently being push to function
+    \item Real-time data is continually being pushed to function
 }
 %when multiple
 %\additemizedfield{Preconditions:}{} 
 
 %Postconditions: What must be true on successful completion and worth telling the reader
-\addfield{Postconditions:}{Technical analysis of real-time data before next day is pushed}
+\addfield{Postconditions:}{Technical analysis of real-time data before next interval is received}
 %when multiple
 %\additemizedfield{Preconditions:}{}
 
 %Main Success Scenario: A typical, unconditional happy path scenario of success.
 \addscenario{Main Success Scenario:}{
-	\item Perform technical analysis on push data
-	\item Finish evaluation and push outcome
-	\item Waits for new data
+	\item Perform technical analysis on newly received data
+	\item Finish evaluation and forward signals
+	\item Wait for new data
 }
 
 %Extensions: Alternate scenarios of success or failure.
 \addscenario{Extensions:}{
 	\item[2.a.] New data is pushed while still evaluating:
 	    \begin{enumerate}
-    	\item[1.] Finish evaluation and push outcome
+    	\item[1.] Finish evaluation and forward signals
     	\item[2.] Repeat from step 1
     	\item[3.] Data is continually pushed
     	\item[4.] Queue reaches threshold
@@ -408,7 +484,7 @@ class BotExistenceModel:
 %Stakeholders and Interests: Who cares about this use case and what do they want?
 \additemizedfield{Stakeholders and \\ Interests:}{
 	\item Developers: Ensures bot can deliver operations
-	\item Users: Use the bot to automate trades
+	\item Users: Use the bot to generate signals
 }
 
 %Preconditions: What must be true on start and worth telling the reader?
@@ -425,33 +501,29 @@ class BotExistenceModel:
 
 %Main Success Scenario: A typical, unconditional happy path scenario of success.
 \addscenario{Main Success Scenario:}{
-    \item User selects coin and configures algorithm options
-	\item User sends start signal and configuration to server
-	\item Bot analyses and fetches data required
-	\item Bot performs technical analysis repeatedly
-	\item Bot generates trade signal when indicators align
-	\item Bot alerts user
-	\item Bot sends trade details to Binance
-	\item Bot updates user details on success
-	\item Bot alerts user
+    \item User selects coin pair and configures strategy options and presses the `Start Bot' button
+	\item Front end sends strategy configurations to start endpoint on the server
+	\item Server initialises bot with strategy and configurations
+    \item Server confirms bot exists and is alive
+    \item Server responds to front end that bot has started and attaches it's unique ID
+    \item Front end notifies the user that the bot has started and stores the ID
 }
 
 %Extensions: Alternate scenarios of success or failure.
 \addscenario{Extensions:}{
-	\item[4.a] Bot warns user of risky coin choice:
+    \item[3.a] Invalid data sent to the server:
+		\begin{enumerate}
+		\item[1.] Server responds to front end that invalid data was supplied and data couldn't start
+        \item[2.] Front end alerts the user that invalid data was supplied and the bot failed to start
+		\item[3.] Alternative use case ends
+		\end{enumerate}
+	\item[4.a] Bot failed to start:
 	    \begin{enumerate}
-	    \item[1.] User confirms warning
-    	\item[2.] Back trace to step 4
+	    \item[1.] Server responds to front end that bot has failed to started
+    	\item[2.] Front end alerts the user that the bot failed to start
     	\item[3.] Alternative use case ends
 	    \end{enumerate}
-	\item[4.b.] Start from 4.a:
-		\begin{enumerate}
-		\item[1.] Try counter is greater than threshold
-    	\item[2.] Log error
-		\item[3.] Alert user unable to cancel active orders
-		\item[4.] Back trace to step 5
-		\item[5.] Alternative use case ends
-		\end{enumerate}
+	
 }
 
 %Special Requirements: Related non-functional requirements.
@@ -501,42 +573,33 @@ class BotExistenceModel:
 %\additemizedfield{Preconditions:}{} 
 
 %Postconditions: What must be true on successful completion and worth telling the reader
-\addfield{Postconditions:}{All technical analysis and pending trades are cancelled}
+\addfield{Postconditions:}{All technical analysis and data gathering is suspended}
 %when multiple
 %\additemizedfield{Preconditions:}{}
 
 %Main Success Scenario: A typical, unconditional happy path scenario of success.
 \addscenario{Main Success Scenario:}{
-	\item User sends a stop signal to the server
-	\item Server begins stop procedure for bot
-	\item Request is sent to Binance API to cancel all orders
-	\item Receive acknowledgement
-	\item Close web sockets and prevent further communication
-	\item Stop trade signal generation
-	\item Bot displays confirmation message to user
+	\item User presses the `Stop Bot' button
+	\item Front end sends bot's ID to the stop endpoint on the server
+	\item Server finds bot by ID and stops it
+	\item Bot closes connection for candlestick data
+	\item Bot stops all operations
+    \item Server deletes bot hash from memory
+	\item Server responds with confirmation message to user
 }
 
 %Extensions: Alternate scenarios of success or failure.
 \addscenario{Extensions:}{
-	\item[4.a] Incorrect acknowledgement code:
+	\item[2.a] Bot not found:
 	    \begin{enumerate}
-	    \item[1.] Try counter is less than threshold
-    	\item[2.] Increment counter
-    	\item[3.] Back trace to step 3
-    	\item[4.] Alternative use case ends
+	    \item[1.] Server responds with `Bot doesn't exist' message
+    	\item[2.] Alternative use case ends
 	    \end{enumerate}
-	\item[4.b.] Start from 4.a:
-		\begin{enumerate}
-		\item[1.] Try counter is greater than threshold
-    	\item[2.] Log error
-		\item[3.] Alert user unable to cancel active orders
-		\item[4.] Back trace to step 5
-		\item[5.] Alternative use case ends
-		\end{enumerate}
 }
 
 %Special Requirements: Related non-functional requirements.
 \additemizedfield{Special \\ Requirements:}{
+	\item NFR-4 at table \ref{table:requirements:non_func}
 	\item NFR-8 at table \ref{table:requirements:non_func}
 	\item FR-1 at table \ref{table:requirements:func}
 	\item FR-2 at table \ref{table:requirements:func}
@@ -588,21 +651,20 @@ class BotExistenceModel:
 
 %Main Success Scenario: A typical, unconditional happy path scenario of success.
 \addscenario{Main Success Scenario:}{
-    \item User opens trade bot URL
-    \item Automatic request to server for data
-    \item Server gathers data locally
-    \item Server adds User to web socket push data
-    \item Server sends data to front end
+    \item Front end starts a WebSocket connection to server for select coin pair's candlestick data
+    \item Server gathers historical data stored locally
+    \item Server sends historical data to front end through WebSocket
+    \item Server forwards new market data to front end through the WebSocket
     \item Front end parses data to chart
 }
 
 %Extensions: Alternate scenarios of success or failure.
 \addscenario{Extensions:}{
-	\item[3.a] No up-to-date local data for coin:
+	\item[2.a] No up-to-date local data for coin pair:
 	    \begin{enumerate}
 	    \item[1.] Server retrieves data from Binance API
     	\item[2.] Stores data locally for future use
-    	\item[3.] Continue to step 4
+    	\item[3.] Continue step 2
     	\item[4.] Alternative use case ends
 	    \end{enumerate}
 }
@@ -612,7 +674,6 @@ class BotExistenceModel:
     \item NFR-6 at table \ref{table:requirements:non_func}
 	\item NFR-8 at table \ref{table:requirements:non_func}
 	\item FR-3 at table \ref{table:requirements:func}
-	\item FR-2 at table \ref{table:requirements:func}
 }
 
 %Technology and Data Variations List: Varying I/O methods and data formats.
@@ -630,10 +691,10 @@ class BotExistenceModel:
 
 \begin{usecase}
 
-\addtitle{Use Case 4}{Display Back-Testing Results} 
+\addtitle{Use Case 4}{Configure Strategy Options} 
 \label{sec:requirements:func:usecases:4}
 %Scope: the system under design
-\addfield{Scope:}{Chart User Interface}
+\addfield{Scope:}{Bot's Control Panel}
 
 %Level: "user-goal" or "subfunction"
 \addfield{Level:}{User-goal}
@@ -643,48 +704,38 @@ class BotExistenceModel:
 
 %Stakeholders and Interests: Who cares about this use case and what do they want?
 \additemizedfield{Stakeholders and \\ Interests:}{
-	\item Developers: Ensures algorithms can be tested on historical data
-	\item Users: Analyse the algorithms performance on historical data
+	\item Developers: Ensures strategies can be configured by the user
+	\item Users: Ensures the user's selected strategy and configurations are what they want
 }
 
 %Preconditions: What must be true on start and worth telling the reader?
 \additemizedfield{Preconditions:}{
     \item Active Internet Connection
-    \item Historical Market Data for Coin
-    
 }
 %when multiple
 %\additemizedfield{Preconditions:}{} 
 
 %Postconditions: What must be true on successful completion and worth telling the reader
-\addfield{Postconditions:}{Candlestick Chart Displays Historical Trade Signals}
+\addfield{Postconditions:}{Server responds that bot has started successfully to new configurations}
 %when multiple
 %\additemizedfield{Preconditions:}{}
 
 %Main Success Scenario: A typical, unconditional happy path scenario of success.
 \addscenario{Main Success Scenario:}{
-    \item User specifies options
-    \item User requests back-testing results
-    \item Server applies criteria 
-    \item Server applies data
-    \item Server sends results to front end chart
+    \item User selects specific strategy from control panel
+    \item User configures strategy options via dropdown menus, integer incrementers or manual keyboard input
+    \item User presses `Start Bot' with custom defined strategy configurations
+    \item Use Case 1 (Pg. \pageref{sec:requirements:func:usecases:1}) begins
 }
 
 
 %Extensions: Alternate scenarios of success or failure.
-\addscenario{Extensions:}{
-	\item[6.] Reset to default display:
-	    \begin{enumerate}
-	    \item[1.] User signals front end to reset chart
-    	\item[2.] Front end chart removes added indicators
-    	\item[3.] Alternative use case ends
-	    \end{enumerate}
-}
+
 
 %Special Requirements: Related non-functional requirements.
 \additemizedfield{Special \\ Requirements:}{
 	\item NFR-8 at table \ref{table:requirements:non_func}
-	\item FR-5 at table \ref{table:requirements:func}
+	%\item FR-5 at table \ref{table:requirements:func}
 	\item FR-6 at table \ref{table:requirements:func}
 }
 

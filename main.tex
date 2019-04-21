@@ -21,7 +21,9 @@
 	listof=totoc,				% include listof entries in toc
 	titlepage=on,				% own page for each title page
 	captions=tableabove,		% display table captions above the float env
-	draft=false,				% value for draft version
+	draft=false,
+    dvipsnames,
+    table% value for draft version
 ]{scrreprt}%
 
 
@@ -34,12 +36,12 @@
 % **************************************************
 % Information and Commands for Reuse
 % **************************************************
-\newcommand{\thesisTitle}{Cryptocurrency Trading Bot}
+\newcommand{\thesisTitle}{Developing Market Trend Signal Generation of Cryptocurrencies As Software-as-a-Service}
 \newcommand{\thesisName}{Antonio Gargaro}
 \newcommand{\thesisStudying}{BSc Honours in Computer Science}
-\newcommand{\thesisSubject}{Deliverable 1: Final Year Dissertation}
+\newcommand{\thesisSubject}{Final Year Dissertation}
 \newcommand{\thesisDate}{April 23, 2019}
-\newcommand{\thesisVersion}{Deliverable 1 Draft}
+\newcommand{\thesisVersion}{Final}
 
 \newcommand{\thesisFirstReviewer}{Jamie Gabbay}
 \newcommand{\thesisFirstReviewerUniversity}{\protect{Heriot-Watt  University}}
@@ -98,7 +100,10 @@
 
 \usepackage{pdfpages}
 
+\usepackage[]{xcolor}% http://ctan.org/pkg/xcolor
+
 \usepackage{rotating}
+
 \usepackage{listings}
 \usepackage{graphicx}
 \usepackage{subfig}

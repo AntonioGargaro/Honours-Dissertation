@@ -2,16 +2,37 @@
 %
 \chapter{Conclusion}
 \label{sec:conclusion}
- \noindent This final chapter will present the work that has been achieved and the limitations discovered through out this project by discussing the design, implementation, and evaluation chapters. The future work this project looks to address will be based on the achievements and limitations discovered.
+ \noindent This final chapter will present the work that has been achieved and the limitations discovered through out this project by discussing work evaluated in the requirements design, implementation, and evaluation chapters. The future work \textbf{SKNT} looks to address will be based on incomplete work, possible extensions and further research questions.
 
 \section{Achievements}
-\label{sec:conclusion:sec1}
+\label{sec:conclusion:achievements}
+\noindent \textbf{SKNT} has successfully achieved it's aims defined in section \ref{sec:intro:aims} (Pg. \pageref{sec:intro:aims}) by completing the following:
 
+\begin{itemize}
+    \item Signal generation using technical analysis
+    \item Providing the service as Software-as-a-Service
+    \item Interacting with the service through a web based UI
+    \item Visualising data meaningfully to the user about market conditions and bot operations
+\end{itemize}
+
+\noindent After the discussion on technical indicators in section \ref{sec:related:tradingStrategies} (Pg. \pageref{sec:related:tradingStrategies}), this project investigated whether the strategies that have been tested on the stock market would define trends on the crypto market. Based from the results of the strategy evaluations (Sec. \ref{sec:evaluation:strats}, pg. \pageref{sec:evaluation:strats}), generated signals define profitable trends that could be traded on. This was performed by executing the data research, pre-trade analysis, and signal generation steps on the trade process in figure \ref{sec:related:algoTrading:tradeprocess} (Pg. \pageref{sec:related:algoTrading:tradeprocess}) using technical analysis. Furthermore, the results during the investigation align with Lien's \cite{BOOK:Lien:2016} analysis that currency markets are speculative and tend to overshoot and correct. This is apparent by the RSI strategy based on it's performance as it defines overbought and oversold conditions, suggesting this tendency translates into the cryptocurrency market.
+
+Wong, Manzur, and Chew's \cite{ART:Wong:2003} discussion on sideways moving markets and excessive volatility generating false signals is also apparent during the strategy evaluations, where small interval periods on the MA Crossover strategy lowered the average profit per signal significantly and were generated during whipsaws. The signal generation in the sideways market was improved upon through the investigation into multiple technical indicators in a single strategy with the ``MA Crossover \& RSI'' strategy's performance suggesting multiple indicators can be used well together.
+
+\noindent Generating signals as SaaS allows technical analysis to be widely available using large datasets from any location with an internet connection. \textbf{SKNT} successfully utilised HTTP and WebSocket web technologies to provide this service remotely. The web app implemented a UI for users to configure and control the bot through and display market indicators on charts for users understand the current market. Through the usability evaluation (Sec. \ref{sec:evaluation:ui}, pg. \pageref{sec:evaluation:ui}), it is clear to see that this web app creates an intuitive UI where most users can understand it quickly to use the service and gather meaningful data on crypto markets.
+
+\textbf{SKNT} has also taken steps to prepare for future work by developing the process of operations to work concurrently through \textit{actor} models. This allows for multiple self-contained bot's to execute without blocking the web server, however further testing is required before stating how many users can use this at once. The web server has implemented a robust cohort of endpoints that were tested (Sec. \ref{sec:evaluation:web_server}, pg. \pageref{sec:evaluation:web_server}) on their ability to handle multiple cases. This includes handling 429 codes from Binance and input validations on endpoint parameters while sending appropriate responses to the UI to keep users informed.
 
 \section{Limitations}
 \label{sec:conclusion:limitations}
+\noindent \textbf{SKNT}'s limitations came through the libraries it used. Back Trader provided limited support for feeding live data into it's data analysis process when not using their services. When a workaround was implemented, there was little support to pull generated signals from Back Trader and required another workaround. Suggestions to prevent similar issues occurring is to understand exactly how libraries operate and what is fully supported.
 
 
 \section{Future Work}
 \label{sec:conclusion:future}
+
+\noindent \textbf{SKNT}'s original aims were to implement a bot that could perform the entire trade process (Fig. \ref{sec:related:algoTrading:tradeprocess}, pg. \pageref{sec:related:algoTrading:tradeprocess}) to execute trades automatically on the crypto market through technical analysis. Due to time constraints, \textbf{SKNT} revised it's aims to achieve up to signal generation based on confirming trends. This is now an achieved major milestone that is a step towards creating the original aim. To achieve this, future work should use market data such as order book liquidity to perform risk analysis on and find suitable entry into the market. Furthermore, an extensive investigation into using multiple time frames as suggested by Lien \cite{BOOK:Lien:2016}, Kaufman \cite{BOOK:Kaufman:2013}, and Harmon \cite{BOOK:Harmon:2014} to confirm market trends could further improve on strategy performance. 
+
+The completion of requirements \textbf{NFR-6} and \textbf{NFR-7} should be the next areas of functionality that \textbf{SKNT} would look to achieve to create an efficient web app that can be scaled to support multiple users and prevent issues discussed for unit tests 1 and 2 in section \ref{sec:evaluation:web_server:exch_data} (Pg. \pageref{sec:evaluation:web_server:exch_data}). Further developing the UI to reduce the learning curve of users that are unfamiliar with the web app through tutorial pop-ups and other reactive elements would improve on \textbf{SKNT}'s ease-of-use and create a more refined experience. 
+
 
